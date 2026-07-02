@@ -612,7 +612,7 @@ stage.addEventListener('pointerleave',()=>{stars.style.transform='';});
 
 const seal=document.getElementById('seal'),replay=document.getElementById('replay'),card=document.getElementById('card');
 const SINE='cubic-bezier(.37,0,.63,1)',BASE='translate(-50%,-50%) ';   /* ≈ sinusoidal ease-in-out */
-let timers=[],finalS=1.6;
+let timers=[],finalS=1.6,TUCK=0.76;
 function clearT(){timers.forEach(clearTimeout);timers=[];}
 /* scale so the card reaches ~80% of viewport height, capped so it still fits the width */
 function fitScale(){
@@ -623,20 +623,32 @@ function fitScale(){
   return s;
 }
 function moveCard(dur,tf){card.style.transition='transform '+dur+'s '+SINE;card.style.transform=BASE+tf;}
+/* the tucked card is scaled to fit inside the envelope — on narrow phones the taller (wrapped, e.g. Spanish)
+   card would otherwise bulge past the envelope edges */
+function tuckScale(){const e=document.querySelector('.env');
+  if(!e||!card.offsetHeight)return 0.76;
+  return Math.min(0.76,(e.offsetHeight*0.94)/card.offsetHeight);}
+function applyTuck(){if(document.body.classList.contains('open'))return;
+  TUCK=tuckScale();card.style.transform=BASE+'translateY(0) translateZ(0) scale('+TUCK.toFixed(3)+')';}
+/* pin the "close the envelope" link just under the expanded card so it never collides with "Start again" */
+function positionReplay(){if(!document.body.classList.contains('expanded')){replay.style.top='';replay.style.bottom='';return;}
+  const cardBottom=window.innerHeight/2+(card.offsetHeight*finalS)/2,gap=Math.max(8,window.innerHeight*0.014);
+  replay.style.top=Math.min(cardBottom+gap,window.innerHeight-22)+'px';replay.style.bottom='auto';}
 /* once settled at full size, drop the 3D-layer promotions (translateZ/will-change/preserve-3d)
    so the browser re-rasterises the card sharply at its displayed size instead of upscaling a bitmap */
 function sharpen(){card.style.willChange='auto';card.style.transformStyle='flat';
   card.style.transition='none';card.style.transform=BASE+'scale('+finalS.toFixed(3)+')';
-  document.body.classList.add('boxgone');}   // envelope pieces are faded by now — remove them from the render tree
+  document.body.classList.add('boxgone');positionReplay();}   // envelope pieces faded — remove them; anchor the close link to the card
 function open(){
   clearT();
+  TUCK=tuckScale();                                                                                // fit the tucked card to this screen's envelope
   startMusic();                                                                                   // begin music on this direct user gesture (strongest for autoplay policies)
   document.body.classList.add('open');                                                            // flap folds slowly open (2s)
-  timers.push(setTimeout(()=>moveCard(2.2,'translateY(-11vh) translateZ(0) scale(.76)'),150));     // card gently rises out of the opening AS the flap folds
+  timers.push(setTimeout(()=>moveCard(2.2,'translateY(-11vh) translateZ(0) scale('+TUCK.toFixed(3)+')'),150));     // card gently rises out of the opening AS the flap folds
   timers.push(setTimeout(()=>document.body.classList.add('pull'),1000));                           // once the flap is edge-on it drops behind, so the emerging card stays in view
-  timers.push(setTimeout(()=>moveCard(1.3,'translateY(-35vh) translateZ(80px) scale(.76)'),2400)); // arc fully up & out
+  timers.push(setTimeout(()=>moveCard(1.3,'translateY(-35vh) translateZ(80px) scale('+TUCK.toFixed(3)+')'),2400)); // arc fully up & out
   timers.push(setTimeout(()=>{document.body.classList.add('tofront');
-    moveCard(1.3,'translateY(0) translateZ(180px) scale(.76)');},3800));                            // swing down, in front of the envelope
+    moveCard(1.3,'translateY(0) translateZ(180px) scale('+TUCK.toFixed(3)+')');},3800));                            // swing down, in front of the envelope
   timers.push(setTimeout(()=>{finalS=fitScale();
     document.body.classList.add('revealed');document.body.classList.add('expanded');
     moveCard(1.4,'translateY(0) translateZ(0) scale('+finalS.toFixed(3)+')');},5200));             // settle to plane, expand to ~80vh
@@ -646,7 +658,8 @@ function close(){
   clearT();
   card.style.willChange='transform';card.style.transformStyle='preserve-3d';   // restore for the animation
   ['expanded','revealed','tofront','pull','boxgone'].forEach(c=>document.body.classList.remove(c));
-  moveCard(1.0,'translateY(0) translateZ(0) scale(.76)');
+  replay.style.top='';replay.style.bottom='';
+  moveCard(1.0,'translateY(0) translateZ(0) scale('+TUCK.toFixed(3)+')');
   timers.push(setTimeout(()=>document.body.classList.remove('open'),480));
 }
 seal.addEventListener('click',open);
@@ -674,7 +687,7 @@ function startMusic(delay){
 mtoggle.addEventListener('click',e=>{e.stopPropagation();
   if(music.paused){userMuted=false;music.volume=MUSIC_VOL;music.play().catch(()=>{});mtoggle.classList.remove('off');}
   else{userMuted=true;music.pause();mtoggle.classList.add('off');}});
-window.addEventListener('resize',()=>{if(document.body.classList.contains('expanded')){finalS=fitScale();sharpen();}});
+window.addEventListener('resize',()=>{if(document.body.classList.contains('expanded')){finalS=fitScale();sharpen();}else applyTuck();});
 
 const target=new Date('2026-10-02T11:00:00+02:00').getTime();  // 11:00 Rome time (CEST, UTC+2 on 2 Oct 2026) — fixed instant, correct for every viewer's timezone
 function tick(){const now=Date.now();
@@ -728,6 +741,7 @@ function setLang(lang){
   document.documentElement.lang=lang;
   document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.dataset.i18n;if(I18N[k])el.innerHTML=I18N[k][LANG];});
   updateCalLink();
+  if(typeof applyTuck==='function')applyTuck();   // re-fit the tucked card now the (translated) content height is known
 }
 function updateCalLink(){
   const text=LANG?'Isabel y Paul — Boda en Roma':'Isabel & Paul — Wedding in Rome';
