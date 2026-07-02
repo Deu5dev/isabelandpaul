@@ -46,19 +46,28 @@
     animation:breathe 8s ease-in-out infinite;z-index:1;pointer-events:none}
   @keyframes breathe{0%,100%{opacity:.5}50%{opacity:.95}}
   .stars{position:absolute;inset:0;z-index:2;pointer-events:none;transition:transform .6s ease-out}
-  .stars i{position:absolute;border-radius:50%;background:var(--ivory);
-    box-shadow:0 0 6px rgba(243,236,221,.8);animation:tw var(--t,4s) ease-in-out infinite}
-  @keyframes tw{0%,100%{opacity:var(--o,.25)}50%{opacity:1}}
+  /* long-exposure star trails: the whole field turns slowly about a pole below the screen */
+  .starfield{position:absolute;inset:0;transform-origin:50% 230%;animation:skySpin 520s linear infinite;will-change:transform}
+  @keyframes skySpin{to{transform:rotate(360deg)}}
+  .starfield i{position:absolute;height:1.2px;border-radius:2px;transform-origin:0 50%;  /* head at the left, tail streams right */
+    background:linear-gradient(to right,rgba(243,236,221,.9),rgba(243,236,221,0))}
+  .starfield i.gold{background:linear-gradient(to right,rgba(241,217,158,.92),rgba(241,217,158,0))}
+  .starfield i::before{content:"";position:absolute;left:-1.1px;top:50%;transform:translateY(-50%);
+    width:2.2px;height:2.2px;border-radius:50%;background:rgba(243,236,221,.95);box-shadow:0 0 5px rgba(243,236,221,.65)}
+  .starfield i.gold::before{background:rgba(241,217,158,.95);box-shadow:0 0 6px rgba(241,217,158,.85)}
 
   .opener{position:absolute;inset:0;z-index:10;display:flex;align-items:center;justify-content:center}
-  .env{position:relative;width:min(88vw,470px);height:min(58vw,292px);perspective:1700px}
+  .env{position:relative;width:min(88vw,470px);height:min(58vw,292px);perspective:1700px;isolation:isolate}
   .layer{position:absolute;inset:0}
-  /* Marfil Cálido envelope */
+  /* Marfil Cálido envelope — the front panels are pinned to their own GPU layers (translateZ(0),
+     no visual change at z=0) so the card layer can't intermittently bleed through the clip-path seam */
   .back{background:linear-gradient(160deg,#efe9dc 0%,#e6e0d2 55%,#d6cdb9 100%);border-radius:7px;
-    box-shadow:0 30px 70px rgba(0,0,0,.5),inset 0 0 0 1px rgba(138,129,116,.45);z-index:1}
+    box-shadow:0 30px 70px rgba(0,0,0,.5),inset 0 0 0 1px rgba(138,129,116,.45);z-index:1;
+    transform:translateZ(0);backface-visibility:hidden}
   .pocket{z-index:4;background:linear-gradient(155deg,#e2dbca 0%,#cec5b0 100%);
     clip-path:polygon(0 0,50% 50%,100% 0,100% 100%,0 100%);border-radius:7px;
-    box-shadow:inset 0 0 0 1px rgba(138,129,116,.45)}
+    box-shadow:inset 0 0 0 1px rgba(138,129,116,.45);
+    transform:translateZ(0);backface-visibility:hidden;will-change:transform}
   .pocket::before{content:"";position:absolute;inset:0;
     background:linear-gradient(180deg,rgba(255,253,247,.5),transparent 42%);clip-path:polygon(0 0,50% 50%,100% 0)}
   .lid{z-index:6;transform-origin:top center;transition:transform 2s cubic-bezier(.45,.03,.25,1);
@@ -127,8 +136,8 @@
 
   .cross{width:clamp(30px,7vw,44px);height:auto;margin:.2rem auto .5rem;color:var(--gold);display:block;
     filter:drop-shadow(0 1px 2px rgba(124,92,34,.35))}
-  .eyebrow-row{display:flex;align-items:center;justify-content:center;gap:12px;margin-top:.2rem}
-  .eyebrow-row .sprig{width:34px;height:auto;color:var(--gold);opacity:.9}
+  .eyebrow-row{display:flex;align-items:center;justify-content:center;gap:12px;margin-top:.4rem}
+  .eyebrow-row .sprig{display:none}
   .eyebrow{font-weight:500;letter-spacing:.4em;text-transform:uppercase;font-size:clamp(10px,1.6vw,13px);
     color:var(--gold-dk);padding-left:.4em}
   .divider{margin:.9rem auto;color:var(--gold);width:clamp(120px,40%,180px);height:auto;display:block;opacity:.95}
@@ -143,15 +152,15 @@
         url('ParfumerieScript.ttf') format('truetype');
     font-weight:400;font-style:normal;font-display:swap}
   .amp{font-family:'Parfumerie Script','Pinyon Script',cursive;font-style:normal;font-weight:400;font-size:.92em;padding:0 .02em}
-  .married{font-style:italic;font-weight:400;font-size:clamp(14px,2.2vw,20px);color:var(--blue-navy);margin-top:.3rem}
+  .married{font-style:italic;font-weight:400;font-size:clamp(14px,2.2vw,20px);color:var(--blue-navy);margin-top:1.35rem}
   .date{margin:1.1rem 0 .2rem}
-  .dow{font-weight:500;letter-spacing:.32em;text-transform:uppercase;font-size:clamp(11px,1.7vw,14px);color:var(--blue-navy)}
+  .dow{font-weight:500;letter-spacing:.32em;text-transform:uppercase;font-size:clamp(11px,1.7vw,14px);color:var(--gold-dk)}
   .dnum{font-weight:500;letter-spacing:.03em;font-size:clamp(24px,5.6vw,40px);color:var(--wine);line-height:1.15;margin:.15rem 0}
   .roman{font-style:italic;font-weight:400;font-size:clamp(12px,1.8vw,16px);color:var(--gold-dk);opacity:.85;letter-spacing:.22em}
 
-  .pano-cap{margin:1.1rem 0 .3rem;height:1.2em;font-style:italic;font-weight:400;letter-spacing:.04em;
-    font-size:clamp(12px,1.8vw,16px);color:var(--stone);transition:opacity .3s}
-  .pano{width:100%;height:auto;display:block;margin:0 auto .2rem}
+  .pano{width:100%;height:auto;display:block;margin:0 auto .1rem}
+  .pano-cap{margin:.1rem 0 .1rem;height:1.3em;font-style:italic;font-weight:400;letter-spacing:.04em;
+    font-size:clamp(6px,0.9vw,8px);color:var(--stone);transition:opacity .3s}
   .pano *{fill:none;stroke-width:1.15;stroke-linecap:round;stroke-linejoin:round}
   .pano .deco{stroke:rgba(138,129,116,.5)}
   .pano .star{fill:var(--gold);stroke:none;opacity:.75}
@@ -206,7 +215,10 @@
   .card-inner{display:flex;flex-direction:row;align-items:stretch;gap:clamp(10px,2.4vw,22px);
     padding:clamp(12px,2.6vw,20px) clamp(20px,4vw,30px)}
   .side{flex:1 1 0;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
-  .side.right{position:relative;padding-bottom:58px}
+  /* left column distributes its three blocks evenly between a fixed top and bottom */
+  .side.left{justify-content:space-between}
+  .lgroup{display:flex;flex-direction:column;align-items:center;width:100%}
+  .side.right{position:relative;padding-bottom:58px;justify-content:space-between}
   .vrule{flex:0 0 1px;align-self:stretch;margin:7% 0;
     background:linear-gradient(180deg,transparent,rgba(166,124,46,.5),transparent)}
   /* compacted type so the two columns fit an envelope-sized landscape card */
@@ -216,10 +228,10 @@
   .eyebrow-row .sprig{width:26px}
   .divider{margin:.35rem auto;width:clamp(96px,66%,150px)}
   .names{font-size:clamp(30px,7.4vw,48px);line-height:.92;margin:.05rem 0;padding:.06em .12em;overflow:visible}
-  .married{font-size:clamp(12px,2vw,16px);margin-top:.2rem;line-height:1.25}
+  .married{font-size:clamp(12px,2vw,16px);margin-top:1rem;line-height:1.25}
   .date{margin:.5rem 0 1.3rem}
   .dow{font-size:clamp(12px,2vw,15px)}
-  .dnum{font-size:clamp(23px,4.8vw,32px);margin:.12rem 0;line-height:1.05;white-space:nowrap}
+  .dnum{font-size:clamp(23px,4.8vw,32px);margin:.7rem 0;line-height:1.05;white-space:nowrap}
   html[lang="es"] .dnum{white-space:normal}   /* longer Spanish date is allowed to wrap */
   .roman{font-size:clamp(13px,1.9vw,16px)}
   .place{margin-top:.5rem;font-size:clamp(11px,1.8vw,14px);letter-spacing:.26em}
@@ -232,12 +244,7 @@
   .note{margin-top:.5rem;font-size:clamp(12px,1.7vw,15px)}
   .fine{display:block;margin-top:1.5em;font-style:normal;font-size:.66em;line-height:1.35;opacity:.9}
   /* graceful stack on very small phones, where an envelope-sized landscape card is too small to read */
-  @media (max-width:380px){
-    .card-inner{flex-direction:column;gap:6px}
-    .vrule{align-self:center;flex-basis:1px;width:58%;margin:5px 0;
-      background:linear-gradient(90deg,transparent,rgba(166,124,46,.5),transparent)}
-    .names{font-size:clamp(40px,13vw,58px)}
-  }
+  /* Card stays landscape (two-column) at all widths — on narrow phones guests just pinch-zoom. */
 
   /* ================= v3 · CINEMATIC INTRO ================= */
   /* start gate — the first thing shown; a tap unlocks audio + launches the intro */
@@ -247,9 +254,12 @@
   body.started .startscreen{opacity:0;pointer-events:none}
   .ss-inner{text-align:center;padding:8vmin 8vw;animation:ssFade 1.4s cubic-bezier(.2,.7,.2,1) .15s both}
   @keyframes ssFade{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
-  .ss-title,.ss-title2{font-family:'Cormorant Garamond',serif;font-weight:500;font-style:italic;letter-spacing:.08em;
-    font-size:clamp(28px,5.8vw,54px);line-height:1.14}
-  .ss-title2{margin-top:.12em;opacity:.9}
+  .ss-title{font-family:'Cormorant Garamond',serif;font-weight:500;letter-spacing:.16em;
+    font-size:clamp(32px,7vw,68px);line-height:1.1}
+  .ss-title2{font-family:'Cormorant Garamond',serif;font-weight:500;font-style:italic;letter-spacing:.05em;
+    font-size:clamp(24px,5vw,46px);line-height:1.12;opacity:.92}
+  .ss-divider{width:clamp(90px,22vw,180px);height:1px;margin:clamp(15px,2.8vh,24px) auto;
+    background:linear-gradient(90deg,transparent,rgba(216,180,99,.72),transparent)}
   .ss-langs{margin-top:clamp(28px,5.5vh,50px);display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
   .ss-langs .ss-btn{margin-top:0;min-width:130px;justify-content:center}
   .ss-btn{margin-top:clamp(26px,5vh,46px);display:inline-flex;align-items:center;gap:10px;cursor:pointer;
@@ -263,9 +273,6 @@
     transition:opacity 1.2s ease}
   body.introdone .intro{opacity:0;pointer-events:none}
   .istars{position:absolute;inset:0;pointer-events:none}
-  .istars i{position:absolute;width:2px;height:2px;border-radius:50%;background:var(--gold-lt);
-    opacity:0;box-shadow:0 0 6px var(--gold-lt);animation:itw 3.6s ease-in-out infinite}
-  @keyframes itw{0%,100%{opacity:.1}50%{opacity:.8}}
   .iscene{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
     text-align:center;padding:12vmin 8vw;opacity:0;visibility:hidden;color:var(--ivory);
     transition:opacity .9s ease,visibility .9s ease}
@@ -320,6 +327,7 @@
     <div class="startscreen" id="startscreen">
       <div class="ss-inner">
         <div class="ss-title i-gold">We have some news</div>
+        <div class="ss-divider"></div>
         <div class="ss-title2 i-gold">Tenemos una noticia</div>
         <div class="ss-langs">
           <button class="ss-btn" id="btnEn">English</button>
@@ -387,6 +395,7 @@
           <path d="M40 12 C47 11 54 10 60 12"/></svg>
 
         <div class="side left">
+        <div class="lgroup">
         <div class="eyebrow-row r" style="--d:.3s">
           <svg class="sprig" viewBox="0 0 40 20" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round">
             <path d="M38 10 C26 10 14 9 4 5"/><g fill="currentColor" stroke="none">
@@ -407,10 +416,16 @@
           <g transform="translate(100,33) scale(0.44) scale(1,-1)">
             <path fill="#6B3B3A" stroke="none" d="M0,69 l-8,-46 c3,-1 5,-4 5,-7 v-13 h-10 c-10,0 -10,10 -1,7 c-5,9 -16,1 -10,-5 c1,-1 2,-3 0,-3 h-3 c-4,6 -6,-1 -8,-2 c2,-1 4,-8 8,-2 h3 c2,0 1,-2 0,-3 c-6,-6 5,-14 10,-5 c-9,-3 -9,7 1,7 h10 v-15 c0,-5 -5,-4 -3,0 c1,3 -5,4 -5,-2 c0,-6 9,-9 11,-14 c2,5 11,8 11,14 c0,6 -6,5 -5,2 c2,-4 -3,-5 -3,0 v15 h10 c10,0 10,-10 1,-7 c5,-9 16,-1 10,5 c-1,1 -2,3 0,3 h3 c4,-6 6,1 8,2 c-2,1 -4,8 -8,2 h-3 c-2,0 -1,2 0,3 c6,6 -5,14 -10,5 c9,3 9,-7 -1,-7 h-10 v13 c0,3 2,6 5,7 z"/>
           </g></svg>
+        </div>
 
+        <div class="lgroup">
         <div class="names r" data-i18n="namesC" style="--d:.7s">Isabel<br><span class="amp">&amp;</span> Paul</div>
         <div class="married r" data-i18n="married" style="--d:1.2s">are getting married in the Eternal City</div>
-        <svg class="pano r" style="--d:1.5s" viewBox="0 0 620 196" stroke="#A67C2E" id="pano">
+        </div>
+
+        <div class="lgroup">
+        <div class="pano-cap r" id="panoCap" style="--d:1.7s"></div>
+        <svg class="pano r" style="--d:1.5s" viewBox="0 52 620 136" stroke="#A67C2E" id="pano">
           <g class="star"><circle cx="60" cy="26" r="1.6"/><circle cx="150" cy="18" r="1.3"/><circle cx="300" cy="14" r="1.7"/>
             <circle cx="430" cy="22" r="1.3"/><circle cx="540" cy="16" r="1.5"/><circle cx="500" cy="40" r="1.1"/><circle cx="95" cy="46" r="1.1"/></g>
           <g class="deco"><path d="M250 30 q6 -4 12 0"/><path d="M268 24 q6 -4 12 0"/><path d="M360 36 q6 -4 12 0"/></g>
@@ -480,6 +495,7 @@
           </g>
           <g class="deco"><path d="M470 50 q5 -5 10 0 q5 -5 10 0"/><path d="M180 44 q5 -5 10 0 q5 -5 10 0"/></g>
         </svg>
+        </div>
         </div><!-- /left -->
 
         <div class="vrule"></div>
@@ -493,9 +509,9 @@
 
         <div class="place r" style="--d:2.6s"><i></i> <span data-i18n="place">Rome · Italy</span> <i></i></div>
         <div class="count r" style="--d:2.7s">
-          <div><div class="v" id="cd">—</div><div class="k" data-i18n="days">days</div></div>
-          <div><div class="v" id="ch">—</div><div class="k" data-i18n="hours">hours</div></div>
-          <div><div class="v" id="cm">—</div><div class="k" data-i18n="minutes">minutes</div></div>
+          <div><div class="v" id="cd">—</div><div class="k" data-i18n="months">months</div></div>
+          <div><div class="v" id="ch">—</div><div class="k" data-i18n="days">days</div></div>
+          <div><div class="v" id="cm">—</div><div class="k" data-i18n="hours">hours</div></div>
         </div>
         <div class="note r" style="--d:3s"><span data-i18n="note">Formal invitation to follow</span><span class="fine" data-i18n="fine">* Flights through the Middle East may not be covered by travel insurance</span></div>
         <a class="cta r" style="--d:3.3s" id="ics" target="_blank" rel="noopener">
@@ -569,15 +585,25 @@
   </div>
 
 <script>
-(function(){const w=document.getElementById('stars');
-  for(let i=0;i<74;i++){const s=document.createElement('i');
-    const sz=(Math.random()*1.8+0.7).toFixed(1);s.style.width=sz+'px';s.style.height=sz+'px';
-    s.style.left=(Math.random()*100).toFixed(2)+'%';s.style.top=(Math.random()*96).toFixed(2)+'%';
-    s.style.setProperty('--t',(Math.random()*4+3).toFixed(1)+'s');
-    s.style.setProperty('--o',(Math.random()*0.3+0.12).toFixed(2));
-    s.style.animationDelay=(Math.random()*5).toFixed(1)+'s';
-    if(Math.random()>0.86){s.style.background='var(--gold-lt)';s.style.boxShadow='0 0 8px rgba(241,217,158,.9)';}
-    w.appendChild(s);}})();
+/* build a slow long-exposure starfield into `host`. Pole sits well below the screen so the arcs
+   are large and gentle and curve the opposite way (inverted); tails are short, longer toward the top. */
+function makeSky(host,count){
+  const field=document.createElement('div');field.className='starfield';host.appendChild(field);
+  const W=window.innerWidth||1280,H=window.innerHeight||800;
+  const poleX=0.5*W,poleY=2.3*H;                     // pole far below, centred
+  for(let i=0;i<count;i++){const s=document.createElement('i');
+    const phi=-Math.PI*Math.random();                // upper half only (toward the screen) — keeps stars near view
+    const r=(1.3+Math.sqrt(Math.random())*1.5)*H;    // large radii = gentle arcs
+    const x=poleX+r*Math.cos(phi),y=poleY+r*Math.sin(phi);
+    s.style.left=(x/W*100).toFixed(2)+'%';s.style.top=(y/H*100).toFixed(2)+'%';
+    s.style.width=(4+(r/H-1.3)*10).toFixed(1)+'px';  // short tails, a little longer toward the top
+    s.style.height=(Math.random()*0.5+0.8).toFixed(1)+'px';
+    s.style.transform='rotate('+(phi*180/Math.PI-90).toFixed(1)+'deg)';   // tail tangent to the arc
+    s.style.opacity=(Math.random()*0.45+0.3).toFixed(2);
+    if(Math.random()>0.85)s.classList.add('gold');
+    field.appendChild(s);}
+}
+makeSky(document.getElementById('stars'),93);
 
 const stage=document.getElementById('stage'),stars=document.getElementById('stars'),cardInner=document.getElementById('cardInner');
 /* only the background stars parallax — no 3D tilt on the card, which would re-blur it */
@@ -652,12 +678,27 @@ mtoggle.addEventListener('click',e=>{e.stopPropagation();
 window.addEventListener('resize',()=>{if(document.body.classList.contains('expanded')){finalS=fitScale();sharpen();}});
 
 const target=new Date('2026-10-02T11:00:00+02:00').getTime();  // 11:00 Rome time (CEST, UTC+2 on 2 Oct 2026) — fixed instant, correct for every viewer's timezone
-function tick(){const d=target-Date.now();
-  if(d<=0){['cd','ch','cm'].forEach(id=>document.getElementById(id).textContent='0');return;}
-  document.getElementById('cd').textContent=Math.floor(d/864e5);
-  document.getElementById('ch').textContent=Math.floor(d%864e5/36e5);
-  document.getElementById('cm').textContent=Math.floor(d%36e5/6e4);}
+function tick(){const now=Date.now();
+  if(target-now<=0){['cd','ch','cm'].forEach(id=>document.getElementById(id).textContent='0');return;}
+  const nd=new Date(now),td=new Date(target);                                    // countdown as whole months + days + hours
+  let months=(td.getFullYear()-nd.getFullYear())*12+(td.getMonth()-nd.getMonth());
+  let anchor=new Date(nd);anchor.setMonth(anchor.getMonth()+months);
+  if(anchor.getTime()>target){months--;anchor=new Date(nd);anchor.setMonth(anchor.getMonth()+months);}
+  const rem=target-anchor.getTime();
+  document.getElementById('cd').textContent=months;                              // months
+  document.getElementById('ch').textContent=Math.floor(rem/864e5);               // days
+  document.getElementById('cm').textContent=Math.floor(rem%864e5/36e5);}         // hours
 tick();setInterval(tick,30000);
+
+/* Rome skyline — hover (or tap) a monument to reveal its name */
+(function(){const cap=document.getElementById('panoCap');if(!cap)return;
+  document.querySelectorAll('#pano .mon').forEach(m=>{const name=m.getAttribute('data-name');
+    m.addEventListener('mouseenter',()=>{cap.textContent=name;});
+    m.addEventListener('mouseleave',()=>{cap.textContent='';m.classList.remove('on');});
+    m.addEventListener('click',e=>{e.stopPropagation();
+      document.querySelectorAll('#pano .mon.on').forEach(o=>o.classList.remove('on'));
+      m.classList.add('on');cap.textContent=name;});
+  });})();
 
 /* ---- language / translations ---- [en, es] ---- */
 const I18N={
@@ -676,7 +717,7 @@ const I18N={
   place:['Rome &middot; Italy','Roma &middot; Italia'],
   note:['Formal invitation to follow','La invitación formal llegará pronto'],
   fine:['* Flights through the Middle East may not be covered by travel insurance','* Los vuelos con escala en Oriente Medio podrían no estar cubiertos por el seguro de viaje'],
-  days:['days','días'],hours:['hours','horas'],minutes:['minutes','minutos'],
+  months:['months','meses'],days:['days','días'],hours:['hours','horas'],minutes:['minutes','minutos'],
   cta:['Add to calendar','Añadir al calendario'],
   hint:['tap the seal to open','toca el sello para abrir'],
   replay:['close the envelope','cerrar el sobre'],
@@ -702,13 +743,8 @@ updateCalLink();   // default (English) until a language is chosen
 <script>
 /* ===== cinematic intro: stars + drawn Colosseum + scene sequencer ===== */
 (function(){
-  // twinkling stars
-  const w=document.getElementById('introStars');
-  for(let i=0;i<40;i++){const s=document.createElement('i');
-    s.style.left=(Math.random()*100)+'%';s.style.top=(Math.random()*62)+'%';
-    s.style.animationDelay=(Math.random()*3.6)+'s';
-    s.style.transform='scale('+(0.6+Math.random()*1.3).toFixed(2)+')';
-    w.appendChild(s);}
+  // background star trails — same slow long-exposure field as the main stage, so it runs throughout
+  if(typeof makeSky==='function')makeSky(document.getElementById('introStars'),60);
 
   // Colosseum line art (drawn on)
   const svg=document.getElementById('introColosseum'),NS='http://www.w3.org/2000/svg';let delay=0;
@@ -716,7 +752,7 @@ updateCalLink();   // default (English) until a language is chosen
     p.setAttribute('class','idraw');p.setAttribute('pathLength','1');
     p.style.setProperty('--dd',delay.toFixed(2)+'s');delay+=0.05;svg.appendChild(p);}
   add('M36 184 L360 184');
-  add('M44 184 L44 70 Q44 56 58 56 L134 56 L136 92 L136 90 L164 96 L196 92 L236 98 L286 95 L334 102 Q352 104 352 122 L352 184');
+  add('M44 184 L44 70 Q44 56 58 56 L134 56 L136 82 L164 86 L196 82 L236 88 L286 85 L334 92 Q352 94 352 112 L352 184');
   add('M44 70 L136 70');add('M44 104 L136 104');add('M44 140 L136 140');add('M136 130 L352 130');
   function arches(x0,x1,base,top,count,ratio){const span=(x1-x0)/count,aw=span*(ratio||0.66),pad=(span-aw)/2;
     for(let i=0;i<count;i++){const ax=x0+i*span+pad,r=aw/2,spring=top+r;
@@ -729,13 +765,16 @@ updateCalLink();   // default (English) until a language is chosen
   function addB(d){const p=document.createElementNS(NS,'path');p.setAttribute('d',d);
     p.setAttribute('class','idraw');p.setAttribute('pathLength','1');
     p.style.setProperty('--dd',bdelay.toFixed(2)+'s');bdelay+=0.045;bsvg.appendChild(p);}
+  // a tiny robed-figure silhouette (head + tapered robe) so the facade-top reads as statues, not flagpoles
+  function statue(x){addB('M'+(x-2.2)+' 140 L'+(x-1)+' 131.5 L'+(x+1)+' 131.5 L'+(x+2.2)+' 140'
+    +' M'+(x-1.3)+' 129.4 A1.3 1.3 0 1 0 '+(x+1.3)+' 129.4 A1.3 1.3 0 1 0 '+(x-1.3)+' 129.4');}
   addB('M18 230 H382');
   addB('M52 220 H348');
   addB('M62 210 H338');
   addB('M70 210 L70 140 L330 140 L330 210');
   addB('M70 158 H330');
   addB('M168 158 L200 137 L232 158');
-  addB('M78 140 L78 131 M108 140 L108 131 M140 140 L140 131 M260 140 L260 131 M292 140 L292 131 M322 140 L322 131');
+  statue(78);statue(108);statue(140);statue(260);statue(292);statue(322);
   addB('M84 210 V159 M104 210 V159 M124 210 V159 M146 210 V159 M254 210 V159 M276 210 V159 M296 210 V159 M316 210 V159');
   addB('M178 210 V159 M222 210 V159');
   addB('M148 140 V100 M252 140 V100');
@@ -756,7 +795,7 @@ updateCalLink();   // default (English) until a language is chosen
 
   // scene sequence — each dur is that slide's on-screen time in ms
   const scenes=[{id:'i1',dur:2300},{id:'i2',dur:3400},{id:'i3',dur:4200},{id:'i4',dur:4300}];
-  const MUSIC_DELAY_MS=0;   // ms after the language tap before the music becomes audible — tweak to line music up with the slides
+  const MUSIC_DELAY_MS=680;   // ms after the language tap before the music becomes audible — tweak to line music up with the slides
   const ids=scenes.map(s=>s.id);let timers=[],done=false;
   function show(id){ids.forEach(o=>document.getElementById(o).classList.toggle('active',o===id));}
   function finish(){if(done)return;done=true;timers.forEach(clearTimeout);
