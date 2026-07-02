@@ -7,12 +7,13 @@
 <meta property="og:title" content="Isabel &amp; Paul · Save the Date">
 <meta property="og:description" content="Friday, 2 October 2026 · Rome, Italy — tap to open">
 <meta property="og:type" content="website">
-<meta property="og:image" content="og-preview.png">
+<meta property="og:url" content="https://isabelandpaul.netlify.app/">
+<meta property="og:image" content="https://isabelandpaul.netlify.app/og-preview.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Isabel & Paul — Save the Date, Rome 2026">
 <meta name="twitter:card" content="summary_large_image">
-<!-- After deploying, set these to your live URL for reliable link previews:
-     <meta property="og:url" content="https://YOUR-SITE/">  and make og:image an absolute https URL -->
+<meta name="twitter:image" content="https://isabelandpaul.netlify.app/og-preview.jpg">
 <meta name="theme-color" content="#2F3E5C">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -147,9 +148,7 @@
      Download the font, save it next to this HTML named "ParfumerieScript.otf" (or edit the src
      below to match your filename). Falls back to the Pinyon names font until the file is present. */
   @font-face{font-family:'Parfumerie Script';
-    src:url('ParfumerieScript.woff2') format('woff2'),
-        url('ParfumerieScript.otf') format('opentype'),
-        url('ParfumerieScript.ttf') format('truetype');
+    src:url('ParfumerieScript.otf') format('opentype');
     font-weight:400;font-style:normal;font-display:swap}
   .amp{font-family:'Parfumerie Script','Pinyon Script',cursive;font-style:normal;font-weight:400;font-size:.92em;padding:0 .02em}
   .married{font-style:italic;font-weight:400;font-size:clamp(14px,2.2vw,20px);color:var(--blue-navy);margin-top:1.35rem}
@@ -703,8 +702,8 @@ tick();setInterval(tick,30000);
 /* ---- language / translations ---- [en, es] ---- */
 const I18N={
   std:['Save the Date','Reserven la fecha'],
-  names:['Isabel <span class="amp">&amp;</span> Paul','Isabel y Paul'],
-  namesC:['Isabel<br><span class="amp">&amp;</span> Paul','Isabel<br>y Paul'],
+  names:['Isabel <span class="amp">&amp;</span> Paul','Isabel <span class="amp">y</span> Paul'],
+  namesC:['Isabel<br><span class="amp">&amp;</span> Paul','Isabel<br><span class="amp">y</span> Paul'],
   fwo:['for the wedding of','para la boda de'],
   agm:['are getting married','se casan'],
   itec:['In the Eternal City','En la Ciudad Eterna'],
