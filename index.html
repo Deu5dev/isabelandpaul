@@ -199,6 +199,7 @@
   .mtoggle:hover{background:rgba(205,164,81,.2)}
   .mtoggle.off{opacity:.55}
   .mtoggle.off::after{content:"";position:absolute;width:26px;height:1.5px;background:var(--gold-lt);transform:rotate(-45deg)}
+  .mtoggle svg{width:19px;height:19px}
 
   /* ================= v2.1 · LANDSCAPE CARD ================= */
   .glow{background:radial-gradient(circle,rgba(216,180,99,.16) 0%,rgba(166,124,46,.06) 34%,transparent 62%)}
@@ -528,6 +529,12 @@
         <path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg>
       Start again
     </button>
+
+    <button class="mtoggle" id="mtoggle" aria-label="Toggle music">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M9 18V5l10-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="16" cy="16" r="3"/></svg>
+    </button>
+    <audio id="music" src="music.mp3" loop preload="auto"></audio>
   </div>
 
 <script>
@@ -589,6 +596,16 @@ seal.addEventListener('click',open);
 seal.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();open();}});
 replay.addEventListener('click',close);
 document.getElementById('irestart').addEventListener('click',()=>location.reload());  // start again from slide 1
+
+/* background music — loops forever; browsers block autoplay, so it starts on the first tap */
+const music=document.getElementById('music'),mtoggle=document.getElementById('mtoggle');
+music.volume=0.6;
+let userMuted=false;
+function startMusic(){if(!userMuted&&music.paused)music.play().catch(()=>{});}
+document.addEventListener('pointerdown',startMusic);
+mtoggle.addEventListener('click',e=>{e.stopPropagation();
+  if(music.paused){userMuted=false;music.play().catch(()=>{});mtoggle.classList.remove('off');}
+  else{userMuted=true;music.pause();mtoggle.classList.add('off');}});
 window.addEventListener('resize',()=>{if(document.body.classList.contains('expanded')){finalS=fitScale();sharpen();}});
 
 const target=new Date('2026-10-02T11:00:00+02:00').getTime();  // 11:00 Rome time (CEST, UTC+2 on 2 Oct 2026) — fixed instant, correct for every viewer's timezone
