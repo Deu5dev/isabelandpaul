@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Save the Date · Isabel & Paul · Rome 2026</title>
+<meta property="og:title" content="Isabel &amp; Paul · Save the Date">
+<meta property="og:description" content="Friday, 2 October 2026 · Rome, Italy — tap to open">
+<meta property="og:type" content="website">
+<meta property="og:image" content="og-preview.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<!-- After deploying, set these to your live URL for reliable link previews:
+     <meta property="og:url" content="https://YOUR-SITE/">  and make og:image an absolute https URL -->
+<meta name="theme-color" content="#2F3E5C">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Pinyon+Script&display=swap" rel="stylesheet">
+<style>
+  :root{
+    /* Paleta de Boda — Capilla del Coro, Basílica de San Pedro, Roma */
+    --blue-deep:#2F3E5C;      /* Azul Profundo */
+    --blue-navy:#4B5C7A;      /* Azul Marino  */
+    --gold:#A67C2E;           /* Oro Antiguo  */
+    --gold-lt:#d8b463;        /* highlight derived from Oro Antiguo */
+    --gold-dk:#7c5c22;
+    --ivory:#E6E0D2;          /* Marfil Cálido */
+    --paper:#f6f1e7;          /* lighter cotton-paper face */
+    --green:#2E3E38;          /* Verde Mármol */
+    --wine:#6B3B3A;           /* Vino Barroco */
+    --stone:#8A8174;          /* Piedra Clásica */
+    /* legacy aliases kept so existing rules resolve */
+    --navy-1:#141d2c;--navy-2:#2F3E5C;--navy-3:#4B5C7A;--red:var(--wine);--emerald:var(--green);}
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{height:100%}
+  body{background:#05080f;color:var(--ivory);font-family:'Cormorant Garamond',serif;
+    overflow:hidden;display:flex;align-items:center;justify-content:center}
+  /* ---- blue night-sky background ---- */
+  .stage{position:relative;width:100vw;height:100vh;overflow:hidden;
+    background:radial-gradient(125% 90% at 50% 12%,#2a466f 0%,var(--navy-2) 38%,var(--navy-1) 100%)}
+  .stage::after{content:"";position:absolute;inset:0;pointer-events:none;
+    background:radial-gradient(120% 100% at 50% 42%,transparent 50%,rgba(0,0,0,.6) 100%)}
+  .glow{position:absolute;left:50%;top:42%;width:80vmin;height:80vmin;transform:translate(-50%,-50%);
+    background:radial-gradient(circle,rgba(241,217,158,.2) 0%,rgba(205,164,81,.07) 34%,transparent 62%);
+    animation:breathe 8s ease-in-out infinite;z-index:1;pointer-events:none}
+  @keyframes breathe{0%,100%{opacity:.5}50%{opacity:.95}}
+  .stars{position:absolute;inset:0;z-index:2;pointer-events:none;transition:transform .6s ease-out}
+  .stars i{position:absolute;border-radius:50%;background:var(--ivory);
+    box-shadow:0 0 6px rgba(243,236,221,.8);animation:tw var(--t,4s) ease-in-out infinite}
+  @keyframes tw{0%,100%{opacity:var(--o,.25)}50%{opacity:1}}
+
+  .opener{position:absolute;inset:0;z-index:10;display:flex;align-items:center;justify-content:center}
+  .env{position:relative;width:min(88vw,470px);height:min(58vw,292px);perspective:1700px}
+  .layer{position:absolute;inset:0}
+  /* Marfil Cálido envelope */
+  .back{background:linear-gradient(160deg,#efe9dc 0%,#e6e0d2 55%,#d6cdb9 100%);border-radius:7px;
+    box-shadow:0 30px 70px rgba(0,0,0,.5),inset 0 0 0 1px rgba(138,129,116,.45);z-index:1}
+  .pocket{z-index:4;background:linear-gradient(155deg,#e2dbca 0%,#cec5b0 100%);
+    clip-path:polygon(0 0,50% 50%,100% 0,100% 100%,0 100%);border-radius:7px;
+    box-shadow:inset 0 0 0 1px rgba(138,129,116,.45)}
+  .pocket::before{content:"";position:absolute;inset:0;
+    background:linear-gradient(180deg,rgba(255,253,247,.5),transparent 42%);clip-path:polygon(0 0,50% 50%,100% 0)}
+  .lid{z-index:6;transform-origin:top center;transition:transform 2s cubic-bezier(.45,.03,.25,1);
+    background:linear-gradient(180deg,#ede7da 0%,#dcd4c2 100%);backface-visibility:visible;
+    clip-path:polygon(0 0,100% 0,50% 66%);border-radius:7px 7px 0 0;box-shadow:0 6px 18px rgba(0,0,0,.22)}
+  .lid::after{content:"";position:absolute;inset:0;
+    background:linear-gradient(180deg,rgba(255,253,247,.55),transparent 55%);clip-path:polygon(0 0,100% 0,50% 66%)}
+  /* flap folds slowly back and STAYS visible (keeps z-index:6) while it opens... */
+  body.open .lid{transform:rotateX(155deg);box-shadow:none}
+  /* ...then drops behind once the card is being pulled out */
+  body.pull .lid{z-index:2}
+  .env::after{content:"";position:absolute;inset:11px;border:1px solid rgba(166,124,46,.35);
+    border-radius:4px;z-index:5;pointer-events:none}
+  body.open .env::after{opacity:0;transition:opacity .5s}
+  .seal{position:absolute;left:50%;top:31%;transform:translate(-50%,-50%);
+    width:min(25vw,112px);z-index:9;cursor:pointer;transition:transform .8s ease,opacity .8s ease}
+  .seal svg{width:100%;height:auto;display:block;filter:drop-shadow(0 6px 13px rgba(0,0,0,.55))}
+  .seal::before{content:"";position:absolute;inset:-15px;border-radius:50%;z-index:-1;
+    background:radial-gradient(circle,rgba(241,217,158,.35),transparent 66%);animation:sealPulse 2.8s ease-in-out infinite}
+  @keyframes sealPulse{0%,100%{opacity:.3;transform:scale(.9)}50%{opacity:.85;transform:scale(1.1)}}
+  .seal:hover{transform:translate(-50%,-50%) scale(1.05)}
+  body.open .seal{opacity:0;transform:translate(-50%,-50%) scale(.3);pointer-events:none}
+  body.open .seal::before{animation:none;opacity:0}
+  .hint{position:absolute;left:50%;top:calc(100% + 30px);transform:translateX(-50%);white-space:nowrap;z-index:8;
+    font-style:italic;font-weight:300;letter-spacing:.04em;font-size:clamp(19px,2.75vw,25px);
+    color:var(--gold-lt);animation:hintFloat 2.8s ease-in-out infinite}
+  @keyframes hintFloat{0%,100%{transform:translateX(-50%) translateY(0);opacity:.7}50%{transform:translateX(-50%) translateY(4px);opacity:1}}
+  body.open .hint{opacity:0;animation:none;transition:opacity .4s}
+
+  /* Card = envelope footprint (scale 1), tucked inside. On open it arcs up & out of the
+     envelope, swings down in front with a dip toward the viewer (z-axis), then settles back
+     to the plane and expands to ~80% of the screen height. The transform is driven inline by
+     JS so the final scale can be measured against the viewport. Easing ≈ sinusoidal. */
+  .letter{position:absolute;left:50%;top:50%;width:min(88vw,470px);z-index:3;
+    transform:translate(-50%,-50%) translateY(0) translateZ(0) scale(.76);
+    transform-origin:center center;transform-style:preserve-3d;
+    transition:transform 1.6s cubic-bezier(.37,0,.63,1);will-change:transform}
+  body.tofront .letter,body.expanded .letter{z-index:30}
+  body.expanded .back,body.expanded .pocket,body.expanded .lid,body.expanded .seal{opacity:0;transition:opacity 1.2s ease;pointer-events:none}
+  /* once expanded, fully remove the envelope pieces from the render tree — faded clip-path + 3D
+     layers can intermittently mis-composite and flash the diagonal cutout back over the card */
+  body.boxgone .back,body.boxgone .pocket,body.boxgone .lid,body.boxgone .seal,body.boxgone .env::after{display:none}
+  .card-inner{position:relative;color:var(--blue-deep);
+    background:
+      radial-gradient(120% 80% at 30% 12%, #fbf7ee 0%, var(--paper) 45%, #ece4d3 100%);
+    border-radius:3px;padding:clamp(30px,6vw,46px) clamp(22px,5vw,40px) clamp(24px,5vw,38px);
+    text-align:center;
+    box-shadow:0 34px 80px rgba(0,0,0,.55),0 4px 14px rgba(0,0,0,.35),inset 0 0 0 1px rgba(166,124,46,.35);
+    transition:transform .25s ease}
+  /* cotton-paper grain + faint marble veining on the card face */
+  .card-inner .grain{content:"";position:absolute;inset:0;pointer-events:none;border-radius:3px;overflow:hidden;z-index:0}
+  .card-inner .grain::before{content:"";position:absolute;inset:0;opacity:.05;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+  .card-inner .grain::after{content:"";position:absolute;inset:0;mix-blend-mode:multiply;opacity:.45;
+    background:linear-gradient(115deg,transparent 37%,rgba(138,129,116,.06) 42%,transparent 48%),
+      radial-gradient(70% 50% at 82% 92%,rgba(138,129,116,.12),transparent 72%)}
+  .card-inner>*{position:relative;z-index:1}
+  .card-inner::before{content:"";position:absolute;inset:9px;border:1px solid rgba(166,124,46,.6);border-radius:2px;pointer-events:none;z-index:2}
+  .card-inner::after{content:"";position:absolute;inset:13px;border:1px solid rgba(166,124,46,.28);border-radius:1px;pointer-events:none;z-index:2}
+
+  .flourish{position:absolute;width:64px;height:64px;color:var(--gold);opacity:.8;pointer-events:none;z-index:3}
+  .flourish.tl{top:6px;left:6px}.flourish.tr{top:6px;right:6px;transform:scaleX(-1)}
+  .flourish.bl{bottom:6px;left:6px;transform:scaleY(-1)}.flourish.br{bottom:6px;right:6px;transform:scale(-1,-1)}
+
+  .r{opacity:1}   /* card content is fixed/visible for the whole envelope → expand journey */
+
+  .cross{width:clamp(30px,7vw,44px);height:auto;margin:.2rem auto .5rem;color:var(--gold);display:block;
+    filter:drop-shadow(0 1px 2px rgba(124,92,34,.35))}
+  .eyebrow-row{display:flex;align-items:center;justify-content:center;gap:12px;margin-top:.2rem}
+  .eyebrow-row .sprig{width:34px;height:auto;color:var(--gold);opacity:.9}
+  .eyebrow{font-weight:500;letter-spacing:.4em;text-transform:uppercase;font-size:clamp(10px,1.6vw,13px);
+    color:var(--gold-dk);padding-left:.4em}
+  .divider{margin:.9rem auto;color:var(--gold);width:clamp(120px,40%,180px);height:auto;display:block;opacity:.95}
+  .names{font-family:'Pinyon Script',cursive;font-size:clamp(54px,14vw,102px);line-height:.9;
+    color:var(--blue-deep);margin:.1rem 0}
+  /* Ampersand in Parfumerie Script (free for personal use, NOT on Google Fonts → self-hosted).
+     Download the font, save it next to this HTML named "ParfumerieScript.otf" (or edit the src
+     below to match your filename). Falls back to the Pinyon names font until the file is present. */
+  @font-face{font-family:'Parfumerie Script';
+    src:url('ParfumerieScript.woff2') format('woff2'),
+        url('ParfumerieScript.otf') format('opentype'),
+        url('ParfumerieScript.ttf') format('truetype');
+    font-weight:400;font-style:normal;font-display:swap}
+  .amp{font-family:'Parfumerie Script','Pinyon Script',cursive;font-style:normal;font-weight:400;font-size:.92em;padding:0 .02em}
+  .married{font-style:italic;font-weight:400;font-size:clamp(14px,2.2vw,20px);color:var(--blue-navy);margin-top:.3rem}
+  .date{margin:1.1rem 0 .2rem}
+  .dow{font-weight:500;letter-spacing:.32em;text-transform:uppercase;font-size:clamp(11px,1.7vw,14px);color:var(--blue-navy)}
+  .dnum{font-weight:500;letter-spacing:.03em;font-size:clamp(24px,5.6vw,40px);color:var(--wine);line-height:1.15;margin:.15rem 0}
+  .roman{font-style:italic;font-weight:400;font-size:clamp(12px,1.8vw,16px);color:var(--gold-dk);opacity:.85;letter-spacing:.22em}
+
+  .pano-cap{margin:1.1rem 0 .3rem;height:1.2em;font-style:italic;font-weight:400;letter-spacing:.04em;
+    font-size:clamp(12px,1.8vw,16px);color:var(--stone);transition:opacity .3s}
+  .pano{width:100%;height:auto;display:block;margin:0 auto .2rem}
+  .pano *{fill:none;stroke-width:1.15;stroke-linecap:round;stroke-linejoin:round}
+  .pano .deco{stroke:rgba(138,129,116,.5)}
+  .pano .star{fill:var(--gold);stroke:none;opacity:.75}
+  .pano .mon{stroke:var(--blue-navy);cursor:pointer;transition:stroke .35s,filter .35s}
+  .pano .mon:hover,.pano .mon.on{stroke:var(--gold);filter:drop-shadow(0 1px 3px rgba(166,124,46,.55))}
+  .pano .hit{fill:#fff;opacity:0;stroke:none;pointer-events:all}   /* invisible full-monument hit target */
+  .pano .ground{stroke:rgba(166,124,46,.6)}
+
+  .place{margin-top:.7rem;display:flex;align-items:center;justify-content:center;gap:10px;
+    font-weight:500;letter-spacing:.3em;text-transform:uppercase;font-size:clamp(12px,2vw,16px);color:var(--blue-deep)}
+  .place i{width:5px;height:5px;background:var(--gold);transform:rotate(45deg);display:inline-block}
+  .count{margin:1.3rem auto .2rem;display:flex;justify-content:center;gap:clamp(14px,4vw,26px)}
+  .count div{text-align:center;min-width:44px}
+  .count .v{font-weight:600;font-size:clamp(22px,5vw,32px);color:var(--wine);line-height:1}
+  .count .k{font-weight:500;letter-spacing:.2em;text-transform:uppercase;font-size:10px;color:var(--gold-dk);opacity:.9;margin-top:5px}
+  /* discreet, borderless calendar link, pinned small to the bottom of the right pane */
+  .cta{position:absolute;bottom:0;left:0;right:0;margin:0 auto;width:-moz-fit-content;width:fit-content;
+    z-index:4;padding:2px 6px;display:inline-flex;align-items:center;gap:4px;cursor:pointer;background:transparent;border:none;
+    color:var(--stone);font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;
+    letter-spacing:.01em;text-transform:none;text-decoration:none;font-size:clamp(8px,1.15vw,10px);transition:color .3s}
+  .cta:hover{color:var(--wine)}
+  .cta svg{width:9px;height:9px;opacity:.7}
+  .note{margin-top:1.2rem;font-style:italic;font-weight:400;font-size:clamp(13px,1.9vw,17px);color:var(--stone)}
+
+  .replay{position:absolute;z-index:40;bottom:3.5vmin;left:50%;transform:translateX(-50%);display:none;
+    align-items:center;gap:8px;background:transparent;border:none;cursor:pointer;color:var(--gold);
+    font-family:'Cormorant Garamond',serif;font-style:italic;letter-spacing:.08em;font-size:19px;opacity:.7;transition:.3s}
+  .replay:hover{opacity:1}
+  body.expanded .replay{display:inline-flex;animation:fadeIn 1.4s ease 1.4s forwards;opacity:0}
+  @keyframes fadeIn{to{opacity:.7}}
+  .replay svg{width:18px;height:18px}
+  /* "Start again" — restarts the whole intro from slide 1; visible once the intro has played */
+  .irestart{position:absolute;z-index:45;bottom:5vmin;right:6vmin;display:none;align-items:center;gap:8px;
+    background:transparent;border:1px solid rgba(216,180,99,.5);color:var(--gold-lt);cursor:pointer;
+    font-family:'Cormorant Garamond',serif;font-style:italic;letter-spacing:.1em;font-size:15px;
+    padding:8px 18px;border-radius:2px;transition:.3s}
+  .irestart:hover{background:rgba(166,124,46,.18)}
+  .irestart svg{width:15px;height:15px}
+  body.introdone .irestart{display:inline-flex}
+
+  .mtoggle{position:absolute;z-index:60;top:18px;right:18px;width:42px;height:42px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;cursor:pointer;
+    background:rgba(20,42,76,.5);border:1px solid rgba(205,164,81,.5);color:var(--gold-lt);
+    font-size:17px;transition:.3s;backdrop-filter:blur(3px)}
+  .mtoggle:hover{background:rgba(205,164,81,.2)}
+  .mtoggle.off{opacity:.55}
+  .mtoggle.off::after{content:"";position:absolute;width:26px;height:1.5px;background:var(--gold-lt);transform:rotate(-45deg)}
+
+  /* ================= v2.1 · LANDSCAPE CARD ================= */
+  .glow{background:radial-gradient(circle,rgba(216,180,99,.16) 0%,rgba(166,124,46,.06) 34%,transparent 62%)}
+  .card-inner{display:flex;flex-direction:row;align-items:stretch;gap:clamp(10px,2.4vw,22px);
+    padding:clamp(12px,2.6vw,20px) clamp(20px,4vw,30px)}
+  .side{flex:1 1 0;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+  .side.right{position:relative;padding-bottom:58px}
+  .vrule{flex:0 0 1px;align-self:stretch;margin:7% 0;
+    background:linear-gradient(180deg,transparent,rgba(166,124,46,.5),transparent)}
+  /* compacted type so the two columns fit an envelope-sized landscape card */
+  .cross{width:clamp(26px,5vw,34px);margin:.05rem auto .3rem}
+  .eyebrow{font-size:clamp(9px,1.5vw,12px);letter-spacing:.34em}
+  .eyebrow-row{gap:9px}
+  .eyebrow-row .sprig{width:26px}
+  .divider{margin:.35rem auto;width:clamp(96px,66%,150px)}
+  .names{font-size:clamp(30px,7.4vw,48px);line-height:.92;margin:.05rem 0;padding:.06em .12em;overflow:visible}
+  .married{font-size:clamp(12px,2vw,16px);margin-top:.2rem;line-height:1.25}
+  .date{margin:.5rem 0 1.3rem}
+  .dow{font-size:clamp(12px,2vw,15px)}
+  .dnum{font-size:clamp(23px,4.8vw,32px);margin:.12rem 0;white-space:nowrap}
+  .roman{font-size:clamp(13px,1.9vw,16px)}
+  .place{margin-top:.5rem;font-size:clamp(11px,1.8vw,14px);letter-spacing:.26em}
+  /* countdown: small, pinned near the bottom just above the calendar link */
+  .count{position:absolute;bottom:22px;left:0;right:0;margin:0 auto;width:-moz-fit-content;width:fit-content;
+    gap:clamp(7px,1.8vw,11px)}
+  .count .v{font-size:clamp(11px,1.9vw,14px)}
+  .count .k{font-size:6.5px;margin-top:2px}
+  .cta{font-size:clamp(8px,1.15vw,10px)}
+  .note{margin-top:.5rem;font-size:clamp(12px,1.7vw,15px)}
+  .fine{display:block;margin-top:1.5em;font-style:normal;font-size:.66em;line-height:1.35;opacity:.9}
+  /* graceful stack on very small phones, where an envelope-sized landscape card is too small to read */
+  @media (max-width:380px){
+    .card-inner{flex-direction:column;gap:6px}
+    .vrule{align-self:center;flex-basis:1px;width:58%;margin:5px 0;
+      background:linear-gradient(90deg,transparent,rgba(166,124,46,.5),transparent)}
+    .names{font-size:clamp(40px,13vw,58px)}
+  }
+
+  /* ================= v3 · CINEMATIC INTRO ================= */
+  .intro{position:absolute;inset:0;z-index:50;display:flex;align-items:center;justify-content:center;overflow:hidden;
+    background:radial-gradient(130% 100% at 50% 14%,#2a466f 0%,#1c2e4c 46%,#0e1626 100%);
+    transition:opacity 1.2s ease}
+  body.introdone .intro{opacity:0;pointer-events:none}
+  .istars{position:absolute;inset:0;pointer-events:none}
+  .istars i{position:absolute;width:2px;height:2px;border-radius:50%;background:var(--gold-lt);
+    opacity:0;box-shadow:0 0 6px var(--gold-lt);animation:itw 3.6s ease-in-out infinite}
+  @keyframes itw{0%,100%{opacity:.1}50%{opacity:.8}}
+  .iscene{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    text-align:center;padding:12vmin 8vw;opacity:0;visibility:hidden;color:var(--ivory);
+    transition:opacity .9s ease,visibility .9s ease}
+  .iscene.active{opacity:1;visibility:visible}
+  /* transition on the base so children FADE out with the scene instead of snapping (no flash) */
+  /* rest at opacity:1 so leaving a scene never snaps a child off (the scene container fade
+     handles exit); 'both' fill holds the child hidden through its entrance delay */
+  .ireveal{opacity:1}
+  .iscene.active .ireveal{animation:iUp 1.3s cubic-bezier(.2,.7,.2,1) both;animation-delay:var(--d,0s)}
+  @keyframes iUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+  .i-eyebrow{font-weight:500;letter-spacing:.4em;text-transform:uppercase;font-size:clamp(11px,1.7vw,15px);
+    color:var(--gold-lt);padding-left:.4em}
+  .i-title{font-family:'Cormorant Garamond',serif;font-weight:500;letter-spacing:.14em;
+    font-size:clamp(40px,9vw,92px);line-height:1.05;margin:14px 0 20px}
+  .i-gold{background:linear-gradient(100deg,var(--gold-dk) 0%,var(--gold) 25%,var(--gold-lt) 50%,var(--gold) 72%,var(--gold-dk) 100%);
+    background-size:220% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;
+    animation:ishimmer 6s linear infinite}
+  @keyframes ishimmer{to{background-position:220% center}}
+  .i-sub{font-style:italic;font-size:clamp(16px,2.6vw,24px);color:var(--ivory);opacity:.9;margin-top:8px}
+  .i-names{font-family:'Pinyon Script',cursive;font-size:clamp(60px,16vw,140px);line-height:.9;color:var(--gold-lt);
+    text-shadow:0 0 30px rgba(216,180,99,.35)}
+  .i-roma{font-family:'Cormorant Garamond',serif;font-weight:500;letter-spacing:.3em;
+    font-size:clamp(40px,11vw,120px);padding-left:.3em}
+  .i-venue{font-family:'Cormorant Garamond',serif;font-weight:500;letter-spacing:.16em;text-transform:uppercase;
+    font-size:clamp(26px,5.6vw,56px);line-height:1.08;text-align:center;padding-left:.16em}
+  .i-date{font-style:italic;letter-spacing:.06em;font-size:clamp(15px,2.4vw,22px);color:var(--ivory);opacity:.85;margin-top:10px}
+  .i-italia{font-style:italic;letter-spacing:.22em;color:var(--gold-lt);font-size:clamp(16px,3vw,26px);margin-top:2px}
+  .irule{display:flex;align-items:center;gap:14px;color:var(--gold);justify-content:center;margin:2px 0}
+  .irule .l{height:1px;width:min(16vw,120px);background:linear-gradient(90deg,transparent,var(--gold))}
+  .irule .l.r{background:linear-gradient(270deg,transparent,var(--gold))}
+  .irule .d{width:6px;height:6px;border:1px solid var(--gold);transform:rotate(45deg)}
+  .i-underline{width:min(58vw,300px);height:auto;margin:10px 0 4px}
+  .icoloss{width:min(66vw,500px);height:auto;margin:3vmin 0 3.5vmin}
+  .ibasilica{width:min(62vw,460px);height:auto;margin:2vmin 0 3vmin}
+  .idraw{fill:none;stroke:var(--gold);stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round;
+    stroke-dasharray:1;stroke-dashoffset:1}
+  .iscene.active .idraw{animation:idraw 1.6s ease forwards;animation-delay:var(--dd,0s)}
+  @keyframes idraw{to{stroke-dashoffset:0}}
+  .iskip{position:absolute;bottom:5vmin;right:6vmin;z-index:55;background:transparent;
+    border:1px solid rgba(216,180,99,.5);color:var(--gold-lt);font-family:'Cormorant Garamond',serif;font-style:italic;
+    letter-spacing:.1em;font-size:14px;padding:8px 18px;border-radius:2px;cursor:pointer;transition:.3s}
+  .iskip:hover{background:rgba(166,124,46,.18)}
+  body.introdone .iskip{opacity:0;pointer-events:none}
+</style>
+</head>
+<body>
+  <div class="stage" id="stage">
+    <div class="glow"></div>
+    <div class="stars" id="stars"></div>
+
+    <!-- ===== cinematic intro (plays, then fades to the envelope) ===== -->
+    <div class="intro" id="intro">
+      <div class="istars" id="introStars"></div>
+
+      <section class="iscene" id="i1">
+        <div class="i-title i-gold ireveal" style="--d:.3s">Save the&nbsp;Date</div>
+        <svg class="i-underline" viewBox="0 0 220 66" fill="none" stroke="#cda151" stroke-width="1.2" stroke-linecap="round" aria-hidden="true">
+          <path d="M2 33 H84"/><path d="M218 33 H136"/>
+          <g transform="translate(110,33) scale(0.46) scale(1,-1)">
+            <path fill="#6B3B3A" stroke="none" d="M0,69 l-8,-46 c3,-1 5,-4 5,-7 v-13 h-10 c-10,0 -10,10 -1,7 c-5,9 -16,1 -10,-5 c1,-1 2,-3 0,-3 h-3 c-4,6 -6,-1 -8,-2 c2,-1 4,-8 8,-2 h3 c2,0 1,-2 0,-3 c-6,-6 5,-14 10,-5 c-9,-3 -9,7 1,7 h10 v-15 c0,-5 -5,-4 -3,0 c1,3 -5,4 -5,-2 c0,-6 9,-9 11,-14 c2,5 11,8 11,14 c0,6 -6,5 -5,2 c2,-4 -3,-5 -3,0 v15 h10 c10,0 10,-10 1,-7 c5,-9 16,-1 10,5 c-1,1 -2,3 0,3 h3 c4,-6 6,1 8,2 c-2,1 -4,8 -8,2 h-3 c-2,0 -1,2 0,3 c6,6 -5,14 -10,5 c9,3 9,-7 -1,-7 h-10 v13 c0,3 2,6 5,7 z"/>
+          </g>
+        </svg>
+        <div class="i-sub ireveal" style="--d:.7s">for the wedding of</div>
+      </section>
+
+      <section class="iscene" id="i2">
+        <div class="i-names ireveal" style="--d:.2s">Isabel <span class="amp">&amp;</span> Paul</div>
+        <div class="i-italia ireveal" style="--d:1.25s;margin-top:clamp(16px,4.5vh,48px)">are getting married</div>
+      </section>
+
+      <section class="iscene" id="i3">
+        <div class="i-eyebrow ireveal" style="--d:.2s">In the Eternal City</div>
+        <svg class="icoloss" id="introColosseum" viewBox="0 0 400 210" aria-label="Colosseum"></svg>
+        <div class="i-roma i-gold ireveal" style="--d:1.6s">ROMA</div>
+        <div class="i-italia ireveal" style="--d:2s">Italia</div>
+        <div class="i-date ireveal" style="--d:2.3s">Friday · 2 October 2026</div>
+      </section>
+
+      <section class="iscene" id="i4">
+        <div class="i-eyebrow ireveal" style="--d:.2s">In the Choir Chapel of</div>
+        <svg class="ibasilica" id="introBasilica" viewBox="0 0 400 250" aria-label="St Peter's Basilica"></svg>
+        <div class="i-venue i-gold ireveal" style="--d:1.6s">St Peter&rsquo;s Basilica</div>
+        <div class="i-italia ireveal" style="--d:2s">Città del Vaticano</div>
+      </section>
+
+      <button class="iskip" id="iskip">Skip &rsaquo;</button>
+    </div>
+
+    <div class="opener" id="opener">
+      <div class="env" id="env">
+        <div class="layer back"></div>
+        <div class="letter" id="card">
+      <div class="card-inner" id="cardInner">
+        <div class="grain" aria-hidden="true"></div>
+        <svg class="flourish tl" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round">
+          <path d="M6 58 C6 34 16 16 40 12"/><path d="M6 58 C6 46 11 38 22 36 C32 34 36 41 31 47 C28 51 22 50 23 45"/>
+          <path d="M40 12 C47 11 54 10 60 12"/><circle cx="31" cy="46" r="1.6" fill="currentColor"/>
+          <circle cx="60" cy="12" r="1.6" fill="currentColor"/><circle cx="6" cy="58" r="1.6" fill="currentColor"/></svg>
+        <svg class="flourish tr" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round">
+          <path d="M6 58 C6 34 16 16 40 12"/><path d="M6 58 C6 46 11 38 22 36 C32 34 36 41 31 47 C28 51 22 50 23 45"/>
+          <path d="M40 12 C47 11 54 10 60 12"/><circle cx="31" cy="46" r="1.6" fill="currentColor"/></svg>
+        <svg class="flourish bl" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round">
+          <path d="M6 58 C6 34 16 16 40 12"/><path d="M6 58 C6 46 11 38 22 36 C32 34 36 41 31 47 C28 51 22 50 23 45"/>
+          <path d="M40 12 C47 11 54 10 60 12"/></svg>
+        <svg class="flourish br" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round">
+          <path d="M6 58 C6 34 16 16 40 12"/><path d="M6 58 C6 46 11 38 22 36 C32 34 36 41 31 47 C28 51 22 50 23 45"/>
+          <path d="M40 12 C47 11 54 10 60 12"/></svg>
+
+        <div class="side left">
+        <div class="eyebrow-row r" style="--d:.3s">
+          <svg class="sprig" viewBox="0 0 40 20" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round">
+            <path d="M38 10 C26 10 14 9 4 5"/><g fill="currentColor" stroke="none">
+            <ellipse cx="14" cy="8" rx="4" ry="1.7" transform="rotate(-18 14 8)"/>
+            <ellipse cx="22" cy="9" rx="4" ry="1.7" transform="rotate(-12 22 9)"/>
+            <ellipse cx="30" cy="10" rx="4" ry="1.7" transform="rotate(-6 30 10)"/></g></svg>
+          <span class="eyebrow">Save the Date</span>
+          <svg class="sprig" viewBox="0 0 40 20" style="transform:scaleX(-1)" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round">
+            <path d="M38 10 C26 10 14 9 4 5"/><g fill="currentColor" stroke="none">
+            <ellipse cx="14" cy="8" rx="4" ry="1.7" transform="rotate(-18 14 8)"/>
+            <ellipse cx="22" cy="9" rx="4" ry="1.7" transform="rotate(-12 22 9)"/>
+            <ellipse cx="30" cy="10" rx="4" ry="1.7" transform="rotate(-6 30 10)"/></g></svg>
+        </div>
+
+        <svg class="divider r" style="--d:.5s" viewBox="0 0 200 66" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round">
+          <path d="M2 33 H74"/><path d="M198 33 H126"/>
+          <!-- authentic Cruz de Santiago (CC0, Marco Perez Kistler) inverted blade-up — homage to St Peter -->
+          <g transform="translate(100,33) scale(0.44) scale(1,-1)">
+            <path fill="#6B3B3A" stroke="none" d="M0,69 l-8,-46 c3,-1 5,-4 5,-7 v-13 h-10 c-10,0 -10,10 -1,7 c-5,9 -16,1 -10,-5 c1,-1 2,-3 0,-3 h-3 c-4,6 -6,-1 -8,-2 c2,-1 4,-8 8,-2 h3 c2,0 1,-2 0,-3 c-6,-6 5,-14 10,-5 c-9,-3 -9,7 1,7 h10 v-15 c0,-5 -5,-4 -3,0 c1,3 -5,4 -5,-2 c0,-6 9,-9 11,-14 c2,5 11,8 11,14 c0,6 -6,5 -5,2 c2,-4 -3,-5 -3,0 v15 h10 c10,0 10,-10 1,-7 c5,-9 16,-1 10,5 c-1,1 -2,3 0,3 h3 c4,-6 6,1 8,2 c-2,1 -4,8 -8,2 h-3 c-2,0 -1,2 0,3 c6,6 -5,14 -10,5 c9,3 9,-7 -1,-7 h-10 v13 c0,3 2,6 5,7 z"/>
+          </g></svg>
+
+        <div class="names r" style="--d:.7s">Isabel<br><span class="amp">&amp;</span> Paul</div>
+        <div class="married r" style="--d:1.2s">are getting married in the Eternal City</div>
+        <svg class="pano r" style="--d:1.5s" viewBox="0 0 620 196" stroke="#A67C2E" id="pano">
+          <g class="star"><circle cx="60" cy="26" r="1.6"/><circle cx="150" cy="18" r="1.3"/><circle cx="300" cy="14" r="1.7"/>
+            <circle cx="430" cy="22" r="1.3"/><circle cx="540" cy="16" r="1.5"/><circle cx="500" cy="40" r="1.1"/><circle cx="95" cy="46" r="1.1"/></g>
+          <g class="deco"><path d="M250 30 q6 -4 12 0"/><path d="M268 24 q6 -4 12 0"/><path d="M360 36 q6 -4 12 0"/></g>
+
+          <g class="deco">
+            <path d="M58 176 L58 120"/>
+            <path d="M22 104 C24 90 40 80 58 80 C76 80 92 90 94 104 C88 110 80 112 70 110 C72 116 66 120 58 119 C50 120 44 116 46 110 C36 112 28 110 22 104 Z"/>
+            <path d="M40 96 C46 92 52 92 58 95 C64 92 70 92 76 96"/>
+          </g>
+
+          <g class="mon" data-name="Colosseo">
+            <rect class="hit" x="108" y="106" width="108" height="72"/>
+            <path d="M112 176 L112 120 Q112 110 122 110 L150 110 L152 124 L176 122 L196 128 L212 126 L212 176"/>
+            <path d="M112 122 L150 122"/><path d="M150 138 L212 138"/><path d="M112 140 L150 140"/>
+            <path d="M118 122 v-7 a5 5 0 0 1 10 0 v7 M132 122 v-9 a5 5 0 0 1 10 0 v9"/>
+            <path d="M118 140 v-9 a5 5 0 0 1 9 0 v9 M132 140 v-9 a5 5 0 0 1 9 0 v9"/>
+            <path d="M118 176 v-26 a5 5 0 0 1 9 0 v26 M132 176 v-26 a5 5 0 0 1 9 0 v26 M148 176 v-26 a5 5 0 0 1 9 0 v26"/>
+            <path d="M158 138 v-8 a5 5 0 0 1 10 0 v8 M174 138 v-8 a5 5 0 0 1 10 0 v8 M190 138 v-8 a5 5 0 0 1 10 0 v8"/>
+            <path d="M158 176 v-30 a5 5 0 0 1 10 0 v30 M174 176 v-30 a5 5 0 0 1 10 0 v30 M192 176 v-28 a5 5 0 0 1 9 0 v28"/>
+          </g>
+
+          <g class="mon" data-name="Pantheon">
+            <rect class="hit" x="218" y="102" width="88" height="76"/>
+            <path d="M232 134 C236 116 256 106 262 106 C268 106 288 116 292 134"/>
+            <path d="M238 130 C242 120 256 114 262 114 C268 114 282 120 286 130"/>
+            <path d="M224 134 L262 116 L300 134 Z"/>
+            <path d="M228 134 v42 M240 134 v42 M252 134 v42 M272 134 v42 M284 134 v42 M296 134 v42"/>
+            <path d="M220 176 L304 176 M222 134 L302 134"/>
+          </g>
+
+          <g class="mon" data-name="Basilica di San Pietro">
+            <rect class="hit" x="306" y="58" width="98" height="120"/>
+            <path d="M355 62 l1.6 3.4 3.4 1.6 -3.4 1.6 -1.6 3.4 -1.6 -3.4 -3.4 -1.6 3.4 -1.6 Z" fill="#A67C2E" stroke="none"/>
+            <path d="M355 72 v6"/><circle cx="355" cy="82" r="3.4"/>
+            <path d="M330 118 C334 80 376 80 380 118"/>
+            <path d="M338 118 C340 90 370 90 372 118"/>
+            <path d="M345 118 C346 92 364 92 365 118"/>
+            <path d="M322 118 L388 118 L388 132 L322 132 Z"/>
+            <path d="M328 132 v-12 M338 132 v-12 M348 132 v-12 M362 132 v-12 M372 132 v-12 M382 132 v-12"/>
+            <path d="M312 176 L398 176 L398 132 L312 132 Z"/>
+            <path d="M320 176 v-40 M332 176 v-40 M344 176 v-40 M366 176 v-40 M378 176 v-40 M390 176 v-40"/>
+            <path d="M308 176 L402 176"/>
+          </g>
+
+          <g class="mon" data-name="Obelisco">
+            <rect class="hit" x="406" y="82" width="26" height="96"/>
+            <path d="M414 176 L417 100 L423 100 L426 176"/><path d="M417 100 L420 92 L423 100"/>
+            <path d="M420 92 v-5"/><circle cx="420" cy="85" r="1.8" fill="#A67C2E" stroke="none"/>
+          </g>
+
+          <g class="mon" data-name="Arco di Costantino">
+            <rect class="hit" x="430" y="108" width="96" height="70"/>
+            <path d="M436 122 L520 122 L520 140 L436 140 Z"/>
+            <path d="M448 176 L448 156 A14 14 0 0 1 478 156 L478 176"/>
+            <path d="M438 176 L438 160 A6 6 0 0 1 451 160 L451 176"/>
+            <path d="M517 176 L517 160 A6 6 0 0 1 504 160 L504 176"/>
+            <path d="M436 140 v36 M520 140 v36"/>
+            <path d="M448 122 v-8 M468 122 v-8 M488 122 v-8 M508 122 v-8"/>
+            <path d="M432 176 L524 176"/>
+          </g>
+
+          <g class="deco">
+            <path d="M548 176 C540 150 544 112 549 106 C554 112 558 150 550 176 Z"/>
+            <path d="M572 176 C565 154 568 120 573 114 C578 120 581 154 574 176 Z"/>
+            <path d="M30 178 L600 178"/>
+            <path d="M120 182 L300 182 M340 182 L520 182"/>
+          </g>
+          <g class="deco"><path d="M470 50 q5 -5 10 0 q5 -5 10 0"/><path d="M180 44 q5 -5 10 0 q5 -5 10 0"/></g>
+        </svg>
+        </div><!-- /left -->
+
+        <div class="vrule"></div>
+
+        <div class="side right">
+        <div class="date">
+          <div class="dow r" style="--d:2.0s">Friday</div>
+          <div class="dnum r" style="--d:2.2s">2 October 2026</div>
+          <div class="roman r" style="--d:2.4s">· MMXXVI ·</div>
+        </div>
+
+        <div class="place r" style="--d:2.6s"><i></i> Rome · Italy <i></i></div>
+        <div class="count r" style="--d:2.7s">
+          <div><div class="v" id="cd">—</div><div class="k">days</div></div>
+          <div><div class="v" id="ch">—</div><div class="k">hours</div></div>
+          <div><div class="v" id="cm">—</div><div class="k">minutes</div></div>
+        </div>
+        <div class="note r" style="--d:3s">Formal invitation to follow<span class="fine">* Flights through the Middle East may not be covered by travel insurance</span></div>
+        <a class="cta r" style="--d:3.3s" id="ics" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+          Add to calendar
+        </a>
+        </div><!-- /right -->
+      </div>
+        </div>
+        <div class="layer pocket"></div>
+        <div class="layer lid"></div>
+        <div class="seal" id="seal" role="button" tabindex="0" aria-label="tap the seal to open">
+          <svg viewBox="0 0 160 160" class="sealSvg">
+  <defs>
+    <radialGradient id="wg" cx="40%" cy="33%" r="72%">
+      <stop offset="0%" stop-color="#c07b74"/><stop offset="38%" stop-color="#8f4a47"/>
+      <stop offset="72%" stop-color="#6B3B3A"/><stop offset="100%" stop-color="#45262a"/></radialGradient>
+    <radialGradient id="wgin" cx="44%" cy="38%" r="66%">
+      <stop offset="0%" stop-color="#a05a58"/><stop offset="70%" stop-color="#6B3B3A"/>
+      <stop offset="100%" stop-color="#42242a"/></radialGradient>
+    <filter id="grain"><feTurbulence type="fractalNoise" baseFrequency="0.5" numOctaves="2" seed="5" stitchTiles="stitch"/>
+      <feColorMatrix type="matrix" values="0 0 0 0 0.20  0 0 0 0 0.05  0 0 0 0 0.06  0 0 0 0.55 0"/></filter>
+    <filter id="relief" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="1.1" stdDeviation="0.9" flood-color="#2a0a0e" flood-opacity="0.6" result="ds"/>
+      <feGaussianBlur in="SourceAlpha" stdDeviation="0.7" result="bl"/>
+      <feSpecularLighting in="bl" surfaceScale="2.3" specularConstant="0.8" specularExponent="14"
+        lighting-color="#fff0ea" result="sp"><feDistantLight azimuth="235" elevation="60"/></feSpecularLighting>
+      <feComposite in="sp" in2="SourceAlpha" operator="in" result="spc"/>
+      <feMerge><feMergeNode in="ds"/><feMergeNode in="spc"/></feMerge></filter>
+    <filter id="rim" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="0.9" result="bl"/>
+      <feSpecularLighting in="bl" surfaceScale="2.6" specularConstant="0.8" specularExponent="16"
+        lighting-color="#ffd9d2" result="sp"><feDistantLight azimuth="235" elevation="55"/></feSpecularLighting>
+      <feComposite in="sp" in2="SourceAlpha" operator="in"/></filter>
+    <clipPath id="clip"><path d="M142.60 80.00 L142.49 81.16 L142.18 82.30 L141.68 83.42 L140.99 84.52 L140.16 85.58 L139.22 86.59 L138.19 87.57 L137.12 88.51 L136.04 89.41 L135.00 90.28 L134.02 91.14 L133.15 91.98 L132.41 92.84 L131.82 93.71 L131.38 94.62 L131.11 95.57 L131.00 96.57 L131.04 97.63 L131.22 98.76 L131.50 99.95 L131.86 101.20 L132.27 102.50 L132.68 103.85 L133.08 105.22 L133.41 106.59 L133.64 107.96 L133.76 109.30 L133.73 110.58 L133.53 111.79 L133.16 112.91 L132.60 113.93 L131.88 114.84 L130.98 115.62 L129.93 116.28 L128.76 116.82 L127.48 117.25 L126.13 117.59 L124.73 117.85 L123.32 118.05 L121.93 118.23 L120.59 118.40 L119.32 118.60 L118.13 118.84 L117.06 119.17 L116.09 119.59 L115.25 120.13 L114.52 120.79 L113.89 121.59 L113.36 122.52 L112.90 123.57 L112.50 124.74 L112.13 125.99 L111.77 127.31 L111.39 128.67 L110.98 130.03 L110.51 131.37 L109.96 132.64 L109.32 133.81 L108.59 134.86 L107.76 135.76 L106.84 136.49 L105.81 137.03 L104.70 137.38 L103.52 137.53 L102.28 137.51 L100.99 137.31 L99.68 136.97 L98.36 136.51 L97.05 135.97 L95.76 135.38 L94.50 134.77 L93.28 134.20 L92.10 133.68 L90.98 133.26 L89.90 132.96 L88.87 132.81 L87.87 132.82 L86.90 133.00 L85.94 133.35 L84.99 133.86 L84.04 134.51 L83.07 135.28 L82.08 136.14 L81.05 137.06 L80.00 138.00 L78.91 138.92 L77.79 139.78 L76.64 140.54 L75.47 141.17 L74.29 141.65 L73.10 141.94 L71.93 142.03 L70.78 141.91 L69.66 141.59 L68.59 141.06 L67.56 140.35 L66.59 139.48 L65.68 138.47 L64.82 137.37 L64.01 136.19 L63.25 135.00 L62.52 133.81 L61.80 132.67 L61.10 131.61 L60.37 130.66 L59.62 129.84 L58.83 129.17 L57.98 128.65 L57.06 128.29 L56.06 128.08 L54.98 128.00 L53.82 128.05 L52.58 128.18 L51.27 128.37 L49.91 128.59 L48.51 128.81 L47.10 128.99 L45.69 129.10 L44.32 129.11 L43.00 129.00 L41.76 128.74 L40.61 128.33 L39.59 127.76 L38.70 127.02 L37.94 126.13 L37.34 125.10 L36.87 123.93 L36.54 122.67 L36.32 121.32 L36.21 119.92 L36.17 118.50 L36.18 117.08 L36.20 115.69 L36.22 114.35 L36.19 113.09 L36.09 111.90 L35.89 110.82 L35.57 109.83 L35.12 108.95 L34.53 108.15 L33.79 107.44 L32.91 106.80 L31.90 106.21 L30.78 105.66 L29.57 105.11 L28.30 104.56 L27.01 103.99 L25.72 103.37 L24.49 102.69 L23.33 101.95 L22.29 101.14 L21.40 100.24 L20.68 99.27 L20.14 98.23 L19.81 97.13 L19.68 95.96 L19.74 94.76 L19.99 93.53 L20.41 92.28 L20.97 91.03 L21.64 89.80 L22.38 88.58 L23.16 87.39 L23.93 86.24 L24.66 85.13 L25.31 84.05 L25.85 83.00 L26.26 81.99 L26.51 80.99 L26.60 80.00 L26.51 79.01 L26.26 78.01 L25.85 77.00 L25.31 75.95 L24.66 74.87 L23.93 73.76 L23.16 72.61 L22.38 71.42 L21.64 70.20 L20.97 68.97 L20.41 67.72 L19.99 66.47 L19.74 65.24 L19.68 64.04 L19.81 62.87 L20.14 61.77 L20.68 60.73 L21.40 59.76 L22.29 58.86 L23.33 58.05 L24.49 57.31 L25.72 56.63 L27.01 56.01 L28.30 55.44 L29.57 54.89 L30.78 54.34 L31.90 53.79 L32.91 53.20 L33.79 52.56 L34.53 51.85 L35.12 51.05 L35.57 50.17 L35.89 49.18 L36.09 48.10 L36.19 46.91 L36.22 45.65 L36.20 44.31 L36.18 42.92 L36.17 41.50 L36.21 40.08 L36.32 38.68 L36.54 37.33 L36.87 36.07 L37.34 34.90 L37.94 33.87 L38.70 32.98 L39.59 32.24 L40.61 31.67 L41.76 31.26 L43.00 31.00 L44.32 30.89 L45.69 30.90 L47.10 31.01 L48.51 31.19 L49.91 31.41 L51.27 31.63 L52.58 31.82 L53.82 31.95 L54.98 32.00 L56.06 31.92 L57.06 31.71 L57.98 31.35 L58.83 30.83 L59.62 30.16 L60.37 29.34 L61.10 28.39 L61.80 27.33 L62.52 26.19 L63.25 25.00 L64.01 23.81 L64.82 22.63 L65.68 21.53 L66.59 20.52 L67.56 19.65 L68.59 18.94 L69.66 18.41 L70.78 18.09 L71.93 17.97 L73.10 18.06 L74.29 18.35 L75.47 18.83 L76.64 19.46 L77.79 20.22 L78.91 21.08 L80.00 22.00 L81.05 22.94 L82.08 23.86 L83.07 24.72 L84.04 25.49 L84.99 26.14 L85.94 26.65 L86.90 27.00 L87.87 27.18 L88.87 27.19 L89.90 27.04 L90.98 26.74 L92.10 26.32 L93.28 25.80 L94.50 25.23 L95.76 24.62 L97.05 24.03 L98.36 23.49 L99.68 23.03 L100.99 22.69 L102.28 22.49 L103.52 22.47 L104.70 22.62 L105.81 22.97 L106.84 23.51 L107.76 24.24 L108.59 25.14 L109.32 26.19 L109.96 27.36 L110.51 28.63 L110.98 29.97 L111.39 31.33 L111.77 32.69 L112.13 34.01 L112.50 35.26 L112.90 36.43 L113.36 37.48 L113.89 38.41 L114.52 39.21 L115.25 39.87 L116.09 40.41 L117.06 40.83 L118.13 41.16 L119.32 41.40 L120.59 41.60 L121.93 41.77 L123.32 41.95 L124.73 42.15 L126.13 42.41 L127.48 42.75 L128.76 43.18 L129.93 43.72 L130.98 44.38 L131.88 45.16 L132.60 46.07 L133.16 47.09 L133.53 48.21 L133.73 49.42 L133.76 50.70 L133.64 52.04 L133.41 53.41 L133.08 54.78 L132.68 56.15 L132.27 57.50 L131.86 58.80 L131.50 60.05 L131.22 61.24 L131.04 62.37 L131.00 63.43 L131.11 64.43 L131.38 65.38 L131.82 66.29 L132.41 67.16 L133.15 68.02 L134.02 68.86 L135.00 69.72 L136.04 70.59 L137.12 71.49 L138.19 72.43 L139.22 73.41 L140.16 74.42 L140.99 75.48 L141.68 76.58 L142.18 77.70 L142.49 78.84 Z"/></clipPath>
+  </defs>
+  <path d="M142.60 80.00 L142.49 81.16 L142.18 82.30 L141.68 83.42 L140.99 84.52 L140.16 85.58 L139.22 86.59 L138.19 87.57 L137.12 88.51 L136.04 89.41 L135.00 90.28 L134.02 91.14 L133.15 91.98 L132.41 92.84 L131.82 93.71 L131.38 94.62 L131.11 95.57 L131.00 96.57 L131.04 97.63 L131.22 98.76 L131.50 99.95 L131.86 101.20 L132.27 102.50 L132.68 103.85 L133.08 105.22 L133.41 106.59 L133.64 107.96 L133.76 109.30 L133.73 110.58 L133.53 111.79 L133.16 112.91 L132.60 113.93 L131.88 114.84 L130.98 115.62 L129.93 116.28 L128.76 116.82 L127.48 117.25 L126.13 117.59 L124.73 117.85 L123.32 118.05 L121.93 118.23 L120.59 118.40 L119.32 118.60 L118.13 118.84 L117.06 119.17 L116.09 119.59 L115.25 120.13 L114.52 120.79 L113.89 121.59 L113.36 122.52 L112.90 123.57 L112.50 124.74 L112.13 125.99 L111.77 127.31 L111.39 128.67 L110.98 130.03 L110.51 131.37 L109.96 132.64 L109.32 133.81 L108.59 134.86 L107.76 135.76 L106.84 136.49 L105.81 137.03 L104.70 137.38 L103.52 137.53 L102.28 137.51 L100.99 137.31 L99.68 136.97 L98.36 136.51 L97.05 135.97 L95.76 135.38 L94.50 134.77 L93.28 134.20 L92.10 133.68 L90.98 133.26 L89.90 132.96 L88.87 132.81 L87.87 132.82 L86.90 133.00 L85.94 133.35 L84.99 133.86 L84.04 134.51 L83.07 135.28 L82.08 136.14 L81.05 137.06 L80.00 138.00 L78.91 138.92 L77.79 139.78 L76.64 140.54 L75.47 141.17 L74.29 141.65 L73.10 141.94 L71.93 142.03 L70.78 141.91 L69.66 141.59 L68.59 141.06 L67.56 140.35 L66.59 139.48 L65.68 138.47 L64.82 137.37 L64.01 136.19 L63.25 135.00 L62.52 133.81 L61.80 132.67 L61.10 131.61 L60.37 130.66 L59.62 129.84 L58.83 129.17 L57.98 128.65 L57.06 128.29 L56.06 128.08 L54.98 128.00 L53.82 128.05 L52.58 128.18 L51.27 128.37 L49.91 128.59 L48.51 128.81 L47.10 128.99 L45.69 129.10 L44.32 129.11 L43.00 129.00 L41.76 128.74 L40.61 128.33 L39.59 127.76 L38.70 127.02 L37.94 126.13 L37.34 125.10 L36.87 123.93 L36.54 122.67 L36.32 121.32 L36.21 119.92 L36.17 118.50 L36.18 117.08 L36.20 115.69 L36.22 114.35 L36.19 113.09 L36.09 111.90 L35.89 110.82 L35.57 109.83 L35.12 108.95 L34.53 108.15 L33.79 107.44 L32.91 106.80 L31.90 106.21 L30.78 105.66 L29.57 105.11 L28.30 104.56 L27.01 103.99 L25.72 103.37 L24.49 102.69 L23.33 101.95 L22.29 101.14 L21.40 100.24 L20.68 99.27 L20.14 98.23 L19.81 97.13 L19.68 95.96 L19.74 94.76 L19.99 93.53 L20.41 92.28 L20.97 91.03 L21.64 89.80 L22.38 88.58 L23.16 87.39 L23.93 86.24 L24.66 85.13 L25.31 84.05 L25.85 83.00 L26.26 81.99 L26.51 80.99 L26.60 80.00 L26.51 79.01 L26.26 78.01 L25.85 77.00 L25.31 75.95 L24.66 74.87 L23.93 73.76 L23.16 72.61 L22.38 71.42 L21.64 70.20 L20.97 68.97 L20.41 67.72 L19.99 66.47 L19.74 65.24 L19.68 64.04 L19.81 62.87 L20.14 61.77 L20.68 60.73 L21.40 59.76 L22.29 58.86 L23.33 58.05 L24.49 57.31 L25.72 56.63 L27.01 56.01 L28.30 55.44 L29.57 54.89 L30.78 54.34 L31.90 53.79 L32.91 53.20 L33.79 52.56 L34.53 51.85 L35.12 51.05 L35.57 50.17 L35.89 49.18 L36.09 48.10 L36.19 46.91 L36.22 45.65 L36.20 44.31 L36.18 42.92 L36.17 41.50 L36.21 40.08 L36.32 38.68 L36.54 37.33 L36.87 36.07 L37.34 34.90 L37.94 33.87 L38.70 32.98 L39.59 32.24 L40.61 31.67 L41.76 31.26 L43.00 31.00 L44.32 30.89 L45.69 30.90 L47.10 31.01 L48.51 31.19 L49.91 31.41 L51.27 31.63 L52.58 31.82 L53.82 31.95 L54.98 32.00 L56.06 31.92 L57.06 31.71 L57.98 31.35 L58.83 30.83 L59.62 30.16 L60.37 29.34 L61.10 28.39 L61.80 27.33 L62.52 26.19 L63.25 25.00 L64.01 23.81 L64.82 22.63 L65.68 21.53 L66.59 20.52 L67.56 19.65 L68.59 18.94 L69.66 18.41 L70.78 18.09 L71.93 17.97 L73.10 18.06 L74.29 18.35 L75.47 18.83 L76.64 19.46 L77.79 20.22 L78.91 21.08 L80.00 22.00 L81.05 22.94 L82.08 23.86 L83.07 24.72 L84.04 25.49 L84.99 26.14 L85.94 26.65 L86.90 27.00 L87.87 27.18 L88.87 27.19 L89.90 27.04 L90.98 26.74 L92.10 26.32 L93.28 25.80 L94.50 25.23 L95.76 24.62 L97.05 24.03 L98.36 23.49 L99.68 23.03 L100.99 22.69 L102.28 22.49 L103.52 22.47 L104.70 22.62 L105.81 22.97 L106.84 23.51 L107.76 24.24 L108.59 25.14 L109.32 26.19 L109.96 27.36 L110.51 28.63 L110.98 29.97 L111.39 31.33 L111.77 32.69 L112.13 34.01 L112.50 35.26 L112.90 36.43 L113.36 37.48 L113.89 38.41 L114.52 39.21 L115.25 39.87 L116.09 40.41 L117.06 40.83 L118.13 41.16 L119.32 41.40 L120.59 41.60 L121.93 41.77 L123.32 41.95 L124.73 42.15 L126.13 42.41 L127.48 42.75 L128.76 43.18 L129.93 43.72 L130.98 44.38 L131.88 45.16 L132.60 46.07 L133.16 47.09 L133.53 48.21 L133.73 49.42 L133.76 50.70 L133.64 52.04 L133.41 53.41 L133.08 54.78 L132.68 56.15 L132.27 57.50 L131.86 58.80 L131.50 60.05 L131.22 61.24 L131.04 62.37 L131.00 63.43 L131.11 64.43 L131.38 65.38 L131.82 66.29 L132.41 67.16 L133.15 68.02 L134.02 68.86 L135.00 69.72 L136.04 70.59 L137.12 71.49 L138.19 72.43 L139.22 73.41 L140.16 74.42 L140.99 75.48 L141.68 76.58 L142.18 77.70 L142.49 78.84 Z" fill="url(#wg)"/>
+  <g clip-path="url(#clip)" style="mix-blend-mode:multiply" opacity="0.14"><rect x="0" y="0" width="160" height="160" filter="url(#grain)"/></g>
+  <path d="M142.60 80.00 L142.49 81.16 L142.18 82.30 L141.68 83.42 L140.99 84.52 L140.16 85.58 L139.22 86.59 L138.19 87.57 L137.12 88.51 L136.04 89.41 L135.00 90.28 L134.02 91.14 L133.15 91.98 L132.41 92.84 L131.82 93.71 L131.38 94.62 L131.11 95.57 L131.00 96.57 L131.04 97.63 L131.22 98.76 L131.50 99.95 L131.86 101.20 L132.27 102.50 L132.68 103.85 L133.08 105.22 L133.41 106.59 L133.64 107.96 L133.76 109.30 L133.73 110.58 L133.53 111.79 L133.16 112.91 L132.60 113.93 L131.88 114.84 L130.98 115.62 L129.93 116.28 L128.76 116.82 L127.48 117.25 L126.13 117.59 L124.73 117.85 L123.32 118.05 L121.93 118.23 L120.59 118.40 L119.32 118.60 L118.13 118.84 L117.06 119.17 L116.09 119.59 L115.25 120.13 L114.52 120.79 L113.89 121.59 L113.36 122.52 L112.90 123.57 L112.50 124.74 L112.13 125.99 L111.77 127.31 L111.39 128.67 L110.98 130.03 L110.51 131.37 L109.96 132.64 L109.32 133.81 L108.59 134.86 L107.76 135.76 L106.84 136.49 L105.81 137.03 L104.70 137.38 L103.52 137.53 L102.28 137.51 L100.99 137.31 L99.68 136.97 L98.36 136.51 L97.05 135.97 L95.76 135.38 L94.50 134.77 L93.28 134.20 L92.10 133.68 L90.98 133.26 L89.90 132.96 L88.87 132.81 L87.87 132.82 L86.90 133.00 L85.94 133.35 L84.99 133.86 L84.04 134.51 L83.07 135.28 L82.08 136.14 L81.05 137.06 L80.00 138.00 L78.91 138.92 L77.79 139.78 L76.64 140.54 L75.47 141.17 L74.29 141.65 L73.10 141.94 L71.93 142.03 L70.78 141.91 L69.66 141.59 L68.59 141.06 L67.56 140.35 L66.59 139.48 L65.68 138.47 L64.82 137.37 L64.01 136.19 L63.25 135.00 L62.52 133.81 L61.80 132.67 L61.10 131.61 L60.37 130.66 L59.62 129.84 L58.83 129.17 L57.98 128.65 L57.06 128.29 L56.06 128.08 L54.98 128.00 L53.82 128.05 L52.58 128.18 L51.27 128.37 L49.91 128.59 L48.51 128.81 L47.10 128.99 L45.69 129.10 L44.32 129.11 L43.00 129.00 L41.76 128.74 L40.61 128.33 L39.59 127.76 L38.70 127.02 L37.94 126.13 L37.34 125.10 L36.87 123.93 L36.54 122.67 L36.32 121.32 L36.21 119.92 L36.17 118.50 L36.18 117.08 L36.20 115.69 L36.22 114.35 L36.19 113.09 L36.09 111.90 L35.89 110.82 L35.57 109.83 L35.12 108.95 L34.53 108.15 L33.79 107.44 L32.91 106.80 L31.90 106.21 L30.78 105.66 L29.57 105.11 L28.30 104.56 L27.01 103.99 L25.72 103.37 L24.49 102.69 L23.33 101.95 L22.29 101.14 L21.40 100.24 L20.68 99.27 L20.14 98.23 L19.81 97.13 L19.68 95.96 L19.74 94.76 L19.99 93.53 L20.41 92.28 L20.97 91.03 L21.64 89.80 L22.38 88.58 L23.16 87.39 L23.93 86.24 L24.66 85.13 L25.31 84.05 L25.85 83.00 L26.26 81.99 L26.51 80.99 L26.60 80.00 L26.51 79.01 L26.26 78.01 L25.85 77.00 L25.31 75.95 L24.66 74.87 L23.93 73.76 L23.16 72.61 L22.38 71.42 L21.64 70.20 L20.97 68.97 L20.41 67.72 L19.99 66.47 L19.74 65.24 L19.68 64.04 L19.81 62.87 L20.14 61.77 L20.68 60.73 L21.40 59.76 L22.29 58.86 L23.33 58.05 L24.49 57.31 L25.72 56.63 L27.01 56.01 L28.30 55.44 L29.57 54.89 L30.78 54.34 L31.90 53.79 L32.91 53.20 L33.79 52.56 L34.53 51.85 L35.12 51.05 L35.57 50.17 L35.89 49.18 L36.09 48.10 L36.19 46.91 L36.22 45.65 L36.20 44.31 L36.18 42.92 L36.17 41.50 L36.21 40.08 L36.32 38.68 L36.54 37.33 L36.87 36.07 L37.34 34.90 L37.94 33.87 L38.70 32.98 L39.59 32.24 L40.61 31.67 L41.76 31.26 L43.00 31.00 L44.32 30.89 L45.69 30.90 L47.10 31.01 L48.51 31.19 L49.91 31.41 L51.27 31.63 L52.58 31.82 L53.82 31.95 L54.98 32.00 L56.06 31.92 L57.06 31.71 L57.98 31.35 L58.83 30.83 L59.62 30.16 L60.37 29.34 L61.10 28.39 L61.80 27.33 L62.52 26.19 L63.25 25.00 L64.01 23.81 L64.82 22.63 L65.68 21.53 L66.59 20.52 L67.56 19.65 L68.59 18.94 L69.66 18.41 L70.78 18.09 L71.93 17.97 L73.10 18.06 L74.29 18.35 L75.47 18.83 L76.64 19.46 L77.79 20.22 L78.91 21.08 L80.00 22.00 L81.05 22.94 L82.08 23.86 L83.07 24.72 L84.04 25.49 L84.99 26.14 L85.94 26.65 L86.90 27.00 L87.87 27.18 L88.87 27.19 L89.90 27.04 L90.98 26.74 L92.10 26.32 L93.28 25.80 L94.50 25.23 L95.76 24.62 L97.05 24.03 L98.36 23.49 L99.68 23.03 L100.99 22.69 L102.28 22.49 L103.52 22.47 L104.70 22.62 L105.81 22.97 L106.84 23.51 L107.76 24.24 L108.59 25.14 L109.32 26.19 L109.96 27.36 L110.51 28.63 L110.98 29.97 L111.39 31.33 L111.77 32.69 L112.13 34.01 L112.50 35.26 L112.90 36.43 L113.36 37.48 L113.89 38.41 L114.52 39.21 L115.25 39.87 L116.09 40.41 L117.06 40.83 L118.13 41.16 L119.32 41.40 L120.59 41.60 L121.93 41.77 L123.32 41.95 L124.73 42.15 L126.13 42.41 L127.48 42.75 L128.76 43.18 L129.93 43.72 L130.98 44.38 L131.88 45.16 L132.60 46.07 L133.16 47.09 L133.53 48.21 L133.73 49.42 L133.76 50.70 L133.64 52.04 L133.41 53.41 L133.08 54.78 L132.68 56.15 L132.27 57.50 L131.86 58.80 L131.50 60.05 L131.22 61.24 L131.04 62.37 L131.00 63.43 L131.11 64.43 L131.38 65.38 L131.82 66.29 L132.41 67.16 L133.15 68.02 L134.02 68.86 L135.00 69.72 L136.04 70.59 L137.12 71.49 L138.19 72.43 L139.22 73.41 L140.16 74.42 L140.99 75.48 L141.68 76.58 L142.18 77.70 L142.49 78.84 Z" fill="none" stroke="#360d13" stroke-opacity="0.45" stroke-width="1.4"/>
+  <circle cx="80" cy="80" r="50" fill="none" stroke="#2b0a10" stroke-opacity="0.5" stroke-width="3"/>
+  <circle cx="80" cy="80" r="49" fill="url(#wg)"/>
+  <circle cx="80" cy="80" r="49" fill="none" stroke="#2b0a10" stroke-opacity="0.35" stroke-width="1.2" filter="url(#rim)"/>
+  <circle cx="80" cy="80" r="41" fill="url(#wgin)"/>
+  <circle cx="80" cy="80" r="41" fill="none" stroke="#2b0a10" stroke-opacity="0.45" stroke-width="1.4"/>
+  <circle cx="80" cy="80" r="36" fill="none" stroke="#eec2bc" stroke-opacity="0.42" stroke-width="1"/>
+  <g filter="url(#relief)"><text id="mono" x="76.52" y="87.22" text-anchor="middle" font-family="'Pinyon Script',cursive" font-size="30" fill="#c85c62">I&amp;P</text></g>
+</svg>
+        </div>
+        <div class="hint">tap the seal to open</div>
+      </div>
+    </div>
+
+    <button class="replay" id="replay">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg>
+      close the envelope
+    </button>
+
+    <button class="irestart" id="irestart" aria-label="Start again from the beginning">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg>
+      Start again
+    </button>
+  </div>
+
+<script>
+(function(){const w=document.getElementById('stars');
+  for(let i=0;i<74;i++){const s=document.createElement('i');
+    const sz=(Math.random()*1.8+0.7).toFixed(1);s.style.width=sz+'px';s.style.height=sz+'px';
+    s.style.left=(Math.random()*100).toFixed(2)+'%';s.style.top=(Math.random()*96).toFixed(2)+'%';
+    s.style.setProperty('--t',(Math.random()*4+3).toFixed(1)+'s');
+    s.style.setProperty('--o',(Math.random()*0.3+0.12).toFixed(2));
+    s.style.animationDelay=(Math.random()*5).toFixed(1)+'s';
+    if(Math.random()>0.86){s.style.background='var(--gold-lt)';s.style.boxShadow='0 0 8px rgba(241,217,158,.9)';}
+    w.appendChild(s);}})();
+
+const stage=document.getElementById('stage'),stars=document.getElementById('stars'),cardInner=document.getElementById('cardInner');
+/* only the background stars parallax — no 3D tilt on the card, which would re-blur it */
+stage.addEventListener('pointermove',e=>{const x=(e.clientX/window.innerWidth-0.5),y=(e.clientY/window.innerHeight-0.5);
+  stars.style.transform=`translate(${x*-14}px,${y*-14}px)`;});
+stage.addEventListener('pointerleave',()=>{stars.style.transform='';});
+
+const seal=document.getElementById('seal'),replay=document.getElementById('replay'),card=document.getElementById('card');
+const SINE='cubic-bezier(.37,0,.63,1)',BASE='translate(-50%,-50%) ';   /* ≈ sinusoidal ease-in-out */
+let timers=[],finalS=1.6;
+function clearT(){timers.forEach(clearTimeout);timers=[];}
+/* scale so the card reaches ~80% of viewport height, capped so it still fits the width */
+function fitScale(){
+  const w=card.offsetWidth,h=card.offsetHeight;if(!w||!h)return finalS;
+  let s=(0.8*window.innerHeight)/h;
+  const maxW=0.94*window.innerWidth;
+  if(w*s>maxW)s=maxW/w;
+  return s;
+}
+function moveCard(dur,tf){card.style.transition='transform '+dur+'s '+SINE;card.style.transform=BASE+tf;}
+/* once settled at full size, drop the 3D-layer promotions (translateZ/will-change/preserve-3d)
+   so the browser re-rasterises the card sharply at its displayed size instead of upscaling a bitmap */
+function sharpen(){card.style.willChange='auto';card.style.transformStyle='flat';
+  card.style.transition='none';card.style.transform=BASE+'scale('+finalS.toFixed(3)+')';
+  document.body.classList.add('boxgone');}   // envelope pieces are faded by now — remove them from the render tree
+function open(){
+  clearT();
+  document.body.classList.add('open');                                                            // flap folds slowly open (2s)
+  timers.push(setTimeout(()=>moveCard(2.2,'translateY(-11vh) translateZ(0) scale(.76)'),150));     // card gently rises out of the opening AS the flap folds
+  timers.push(setTimeout(()=>document.body.classList.add('pull'),1000));                           // once the flap is edge-on it drops behind, so the emerging card stays in view
+  timers.push(setTimeout(()=>moveCard(1.3,'translateY(-35vh) translateZ(80px) scale(.76)'),2400)); // arc fully up & out
+  timers.push(setTimeout(()=>{document.body.classList.add('tofront');
+    moveCard(1.3,'translateY(0) translateZ(180px) scale(.76)');},3800));                            // swing down, in front of the envelope
+  timers.push(setTimeout(()=>{finalS=fitScale();
+    document.body.classList.add('revealed');document.body.classList.add('expanded');
+    moveCard(1.4,'translateY(0) translateZ(0) scale('+finalS.toFixed(3)+')');},5200));             // settle to plane, expand to ~80vh
+  timers.push(setTimeout(sharpen,6800));                                                            // re-rasterise crisply at full size
+}
+function close(){
+  clearT();
+  card.style.willChange='transform';card.style.transformStyle='preserve-3d';   // restore for the animation
+  ['expanded','revealed','tofront','pull','boxgone'].forEach(c=>document.body.classList.remove(c));
+  moveCard(1.0,'translateY(0) translateZ(0) scale(.76)');
+  timers.push(setTimeout(()=>document.body.classList.remove('open'),480));
+}
+seal.addEventListener('click',open);
+seal.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();open();}});
+replay.addEventListener('click',close);
+document.getElementById('irestart').addEventListener('click',()=>location.reload());  // start again from slide 1
+window.addEventListener('resize',()=>{if(document.body.classList.contains('expanded')){finalS=fitScale();sharpen();}});
+
+const target=new Date('2026-10-02T11:00:00+02:00').getTime();  // 11:00 Rome time (CEST, UTC+2 on 2 Oct 2026) — fixed instant, correct for every viewer's timezone
+function tick(){const d=target-Date.now();
+  if(d<=0){['cd','ch','cm'].forEach(id=>document.getElementById(id).textContent='0');return;}
+  document.getElementById('cd').textContent=Math.floor(d/864e5);
+  document.getElementById('ch').textContent=Math.floor(d%864e5/36e5);
+  document.getElementById('cm').textContent=Math.floor(d%36e5/6e4);}
+tick();setInterval(tick,30000);
+
+/* Real anchor navigation — more reliable than window.open (never popup-blocked) */
+document.getElementById('ics').href='https://calendar.google.com/calendar/render?action=TEMPLATE'
+  +'&dates=20261002/20261003'
+  +'&text='+encodeURIComponent('Isabel & Paul — Wedding in Rome')
+  +'&location='+encodeURIComponent("St Peter's Basilica, Vatican City, Rome")
+  +'&details='+encodeURIComponent('Save the date! Formal invitation to follow.');
+</script>
+
+<script>
+/* ===== cinematic intro: stars + drawn Colosseum + scene sequencer ===== */
+(function(){
+  // twinkling stars
+  const w=document.getElementById('introStars');
+  for(let i=0;i<40;i++){const s=document.createElement('i');
+    s.style.left=(Math.random()*100)+'%';s.style.top=(Math.random()*62)+'%';
+    s.style.animationDelay=(Math.random()*3.6)+'s';
+    s.style.transform='scale('+(0.6+Math.random()*1.3).toFixed(2)+')';
+    w.appendChild(s);}
+
+  // Colosseum line art (drawn on)
+  const svg=document.getElementById('introColosseum'),NS='http://www.w3.org/2000/svg';let delay=0;
+  function add(d){const p=document.createElementNS(NS,'path');p.setAttribute('d',d);
+    p.setAttribute('class','idraw');p.setAttribute('pathLength','1');
+    p.style.setProperty('--dd',delay.toFixed(2)+'s');delay+=0.05;svg.appendChild(p);}
+  add('M36 184 L360 184');
+  add('M44 184 L44 70 Q44 56 58 56 L134 56 L136 92 L136 90 L164 96 L196 92 L236 98 L286 95 L334 102 Q352 104 352 122 L352 184');
+  add('M44 70 L136 70');add('M44 104 L136 104');add('M44 140 L136 140');add('M136 130 L352 130');
+  function arches(x0,x1,base,top,count,ratio){const span=(x1-x0)/count,aw=span*(ratio||0.66),pad=(span-aw)/2;
+    for(let i=0;i<count;i++){const ax=x0+i*span+pad,r=aw/2,spring=top+r;
+      add('M'+ax.toFixed(1)+' '+base+' L'+ax.toFixed(1)+' '+spring.toFixed(1)+' A'+r.toFixed(1)+' '+r.toFixed(1)+' 0 0 1 '+(ax+aw).toFixed(1)+' '+spring.toFixed(1)+' L'+(ax+aw).toFixed(1)+' '+base);}}
+  arches(48,132,104,74,4,0.8);arches(48,132,140,108,4,0.8);arches(48,132,182,146,4,0.8);
+  arches(136,348,130,100,8);arches(136,348,182,136,8);
+
+  // St Peter's Basilica line art (drawn on)
+  const bsvg=document.getElementById('introBasilica');let bdelay=0;
+  function addB(d){const p=document.createElementNS(NS,'path');p.setAttribute('d',d);
+    p.setAttribute('class','idraw');p.setAttribute('pathLength','1');
+    p.style.setProperty('--dd',bdelay.toFixed(2)+'s');bdelay+=0.045;bsvg.appendChild(p);}
+  addB('M18 230 H382');
+  addB('M52 220 H348');
+  addB('M62 210 H338');
+  addB('M70 210 L70 140 L330 140 L330 210');
+  addB('M70 158 H330');
+  addB('M168 158 L200 137 L232 158');
+  addB('M78 140 L78 131 M108 140 L108 131 M140 140 L140 131 M260 140 L260 131 M292 140 L292 131 M322 140 L322 131');
+  addB('M84 210 V159 M104 210 V159 M124 210 V159 M146 210 V159 M254 210 V159 M276 210 V159 M296 210 V159 M316 210 V159');
+  addB('M178 210 V159 M222 210 V159');
+  addB('M148 140 V100 M252 140 V100');
+  addB('M136 100 H264');
+  addB('M160 138 V104 M172 138 V104 M184 138 V104 M196 138 V104 M208 138 V104 M220 138 V104 M232 138 V104 M244 138 V104');
+  addB('M148 100 C140 62 180 43 200 41 C220 43 260 62 252 100');
+  addB('M200 43 C192 62 180 82 162 100');
+  addB('M200 43 C198 62 194 82 182 100');
+  addB('M200 43 V100');
+  addB('M200 43 C202 62 206 82 218 100');
+  addB('M200 43 C208 62 220 82 238 100');
+  addB('M193 41 V31 H207 V41');
+  addB('M190 31 H210');
+  addB('M194 31 C197 25 203 25 206 31');
+  addB('M200 25 V20');
+  addB('M196 16 A4 4 0 1 1 204 16 A4 4 0 1 1 196 16');
+  addB('M200 12 V4 M196 7 H204');
+
+  // scene sequence
+  const scenes=[{id:'i1',dur:2300},{id:'i2',dur:3400},{id:'i3',dur:4200},{id:'i4',dur:4300}];
+  const ids=scenes.map(s=>s.id);let timers=[],done=false;
+  function show(id){ids.forEach(o=>document.getElementById(o).classList.toggle('active',o===id));}
+  function finish(){if(done)return;done=true;timers.forEach(clearTimeout);
+    ids.forEach(o=>document.getElementById(o).classList.remove('active'));
+    document.body.classList.add('introdone');}
+  function run(){let t=0;scenes.forEach(s=>{timers.push(setTimeout(()=>show(s.id),t));t+=s.dur;});
+    timers.push(setTimeout(finish,t));}
+  document.getElementById('iskip').addEventListener('click',finish);
+  window.addEventListener('load',()=>setTimeout(run,300));
+})();
+</script>
+
+
+
+
+</body>
+</html>
