@@ -219,7 +219,8 @@
   .married{font-size:clamp(12px,2vw,16px);margin-top:.2rem;line-height:1.25}
   .date{margin:.5rem 0 1.3rem}
   .dow{font-size:clamp(12px,2vw,15px)}
-  .dnum{font-size:clamp(23px,4.8vw,32px);margin:.12rem 0;white-space:nowrap}
+  .dnum{font-size:clamp(23px,4.8vw,32px);margin:.12rem 0;line-height:1.05;white-space:nowrap}
+  html[lang="es"] .dnum{white-space:normal}   /* longer Spanish date is allowed to wrap */
   .roman{font-size:clamp(13px,1.9vw,16px)}
   .place{margin-top:.5rem;font-size:clamp(11px,1.8vw,14px);letter-spacing:.26em}
   /* countdown: small, pinned near the bottom just above the calendar link */
@@ -239,6 +240,24 @@
   }
 
   /* ================= v3 · CINEMATIC INTRO ================= */
+  /* start gate — the first thing shown; a tap unlocks audio + launches the intro */
+  .startscreen{position:absolute;inset:0;z-index:70;display:flex;align-items:center;justify-content:center;
+    cursor:pointer;background:radial-gradient(130% 100% at 50% 14%,#2a466f 0%,#1c2e4c 46%,#0e1626 100%);
+    transition:opacity .7s ease}
+  body.started .startscreen{opacity:0;pointer-events:none}
+  .ss-inner{text-align:center;padding:8vmin 8vw;animation:ssFade 1.4s cubic-bezier(.2,.7,.2,1) .15s both}
+  @keyframes ssFade{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+  .ss-title,.ss-title2{font-family:'Cormorant Garamond',serif;font-weight:500;font-style:italic;letter-spacing:.08em;
+    font-size:clamp(28px,5.8vw,54px);line-height:1.14}
+  .ss-title2{margin-top:.12em;opacity:.9}
+  .ss-langs{margin-top:clamp(28px,5.5vh,50px);display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+  .ss-langs .ss-btn{margin-top:0;min-width:130px;justify-content:center}
+  .ss-btn{margin-top:clamp(26px,5vh,46px);display:inline-flex;align-items:center;gap:10px;cursor:pointer;
+    background:transparent;border:1px solid rgba(216,180,99,.6);color:var(--gold-lt);
+    font-family:'Cormorant Garamond',serif;font-style:italic;letter-spacing:.16em;text-transform:uppercase;
+    font-size:clamp(13px,2vw,16px);padding:13px 36px;border-radius:2px;transition:.3s}
+  .ss-btn:hover{background:rgba(166,124,46,.18)}
+  .ss-btn svg{width:16px;height:16px}
   .intro{position:absolute;inset:0;z-index:50;display:flex;align-items:center;justify-content:center;overflow:hidden;
     background:radial-gradient(130% 100% at 50% 14%,#2a466f 0%,#1c2e4c 46%,#0e1626 100%);
     transition:opacity 1.2s ease}
@@ -297,38 +316,50 @@
     <div class="glow"></div>
     <div class="stars" id="stars"></div>
 
+    <!-- ===== start gate: tapping here unlocks audio and launches the intro ===== -->
+    <div class="startscreen" id="startscreen">
+      <div class="ss-inner">
+        <div class="ss-title i-gold">We have some news</div>
+        <div class="ss-title2 i-gold">Tenemos una noticia</div>
+        <div class="ss-langs">
+          <button class="ss-btn" id="btnEn">English</button>
+          <button class="ss-btn" id="btnEs">Espa&ntilde;ol</button>
+        </div>
+      </div>
+    </div>
+
     <!-- ===== cinematic intro (plays, then fades to the envelope) ===== -->
     <div class="intro" id="intro">
       <div class="istars" id="introStars"></div>
 
       <section class="iscene" id="i1">
-        <div class="i-title i-gold ireveal" style="--d:.3s">Save the&nbsp;Date</div>
+        <div class="i-title i-gold ireveal" data-i18n="std" style="--d:.3s">Save the&nbsp;Date</div>
         <svg class="i-underline" viewBox="0 0 220 66" fill="none" stroke="#cda151" stroke-width="1.2" stroke-linecap="round" aria-hidden="true">
           <path d="M2 33 H84"/><path d="M218 33 H136"/>
           <g transform="translate(110,33) scale(0.46) scale(1,-1)">
             <path fill="#6B3B3A" stroke="none" d="M0,69 l-8,-46 c3,-1 5,-4 5,-7 v-13 h-10 c-10,0 -10,10 -1,7 c-5,9 -16,1 -10,-5 c1,-1 2,-3 0,-3 h-3 c-4,6 -6,-1 -8,-2 c2,-1 4,-8 8,-2 h3 c2,0 1,-2 0,-3 c-6,-6 5,-14 10,-5 c-9,-3 -9,7 1,7 h10 v-15 c0,-5 -5,-4 -3,0 c1,3 -5,4 -5,-2 c0,-6 9,-9 11,-14 c2,5 11,8 11,14 c0,6 -6,5 -5,2 c2,-4 -3,-5 -3,0 v15 h10 c10,0 10,-10 1,-7 c5,-9 16,-1 10,5 c-1,1 -2,3 0,3 h3 c4,-6 6,1 8,2 c-2,1 -4,8 -8,2 h-3 c-2,0 -1,2 0,3 c6,6 -5,14 -10,5 c9,3 9,-7 -1,-7 h-10 v13 c0,3 2,6 5,7 z"/>
           </g>
         </svg>
-        <div class="i-sub ireveal" style="--d:.7s">for the wedding of</div>
+        <div class="i-sub ireveal" data-i18n="fwo" style="--d:.7s">for the wedding of</div>
       </section>
 
       <section class="iscene" id="i2">
-        <div class="i-names ireveal" style="--d:.2s">Isabel <span class="amp">&amp;</span> Paul</div>
-        <div class="i-italia ireveal" style="--d:1.25s;margin-top:clamp(16px,4.5vh,48px)">are getting married</div>
+        <div class="i-names ireveal" data-i18n="names" style="--d:.2s">Isabel <span class="amp">&amp;</span> Paul</div>
+        <div class="i-italia ireveal" data-i18n="agm" style="--d:1.25s;margin-top:clamp(16px,4.5vh,48px)">are getting married</div>
       </section>
 
       <section class="iscene" id="i3">
-        <div class="i-eyebrow ireveal" style="--d:.2s">In the Eternal City</div>
+        <div class="i-eyebrow ireveal" data-i18n="itec" style="--d:.2s">In the Eternal City</div>
         <svg class="icoloss" id="introColosseum" viewBox="0 0 400 210" aria-label="Colosseum"></svg>
         <div class="i-roma i-gold ireveal" style="--d:1.6s">ROMA</div>
         <div class="i-italia ireveal" style="--d:2s">Italia</div>
-        <div class="i-date ireveal" style="--d:2.3s">Friday · 2 October 2026</div>
+        <div class="i-date ireveal" data-i18n="idate" style="--d:2.3s">Friday · 2 October 2026</div>
       </section>
 
       <section class="iscene" id="i4">
-        <div class="i-eyebrow ireveal" style="--d:.2s">In the Choir Chapel of</div>
+        <div class="i-eyebrow ireveal" data-i18n="chapel" style="--d:.2s">In the Choir Chapel of</div>
         <svg class="ibasilica" id="introBasilica" viewBox="0 0 400 250" aria-label="St Peter's Basilica"></svg>
-        <div class="i-venue i-gold ireveal" style="--d:1.6s">St Peter&rsquo;s Basilica</div>
+        <div class="i-venue i-gold ireveal" data-i18n="spb" style="--d:1.6s">St Peter&rsquo;s Basilica</div>
         <div class="i-italia ireveal" style="--d:2s">Città del Vaticano</div>
       </section>
 
@@ -362,7 +393,7 @@
             <ellipse cx="14" cy="8" rx="4" ry="1.7" transform="rotate(-18 14 8)"/>
             <ellipse cx="22" cy="9" rx="4" ry="1.7" transform="rotate(-12 22 9)"/>
             <ellipse cx="30" cy="10" rx="4" ry="1.7" transform="rotate(-6 30 10)"/></g></svg>
-          <span class="eyebrow">Save the Date</span>
+          <span class="eyebrow" data-i18n="std">Save the Date</span>
           <svg class="sprig" viewBox="0 0 40 20" style="transform:scaleX(-1)" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round">
             <path d="M38 10 C26 10 14 9 4 5"/><g fill="currentColor" stroke="none">
             <ellipse cx="14" cy="8" rx="4" ry="1.7" transform="rotate(-18 14 8)"/>
@@ -377,8 +408,8 @@
             <path fill="#6B3B3A" stroke="none" d="M0,69 l-8,-46 c3,-1 5,-4 5,-7 v-13 h-10 c-10,0 -10,10 -1,7 c-5,9 -16,1 -10,-5 c1,-1 2,-3 0,-3 h-3 c-4,6 -6,-1 -8,-2 c2,-1 4,-8 8,-2 h3 c2,0 1,-2 0,-3 c-6,-6 5,-14 10,-5 c-9,-3 -9,7 1,7 h10 v-15 c0,-5 -5,-4 -3,0 c1,3 -5,4 -5,-2 c0,-6 9,-9 11,-14 c2,5 11,8 11,14 c0,6 -6,5 -5,2 c2,-4 -3,-5 -3,0 v15 h10 c10,0 10,-10 1,-7 c5,-9 16,-1 10,5 c-1,1 -2,3 0,3 h3 c4,-6 6,1 8,2 c-2,1 -4,8 -8,2 h-3 c-2,0 -1,2 0,3 c6,6 -5,14 -10,5 c9,3 9,-7 -1,-7 h-10 v13 c0,3 2,6 5,7 z"/>
           </g></svg>
 
-        <div class="names r" style="--d:.7s">Isabel<br><span class="amp">&amp;</span> Paul</div>
-        <div class="married r" style="--d:1.2s">are getting married in the Eternal City</div>
+        <div class="names r" data-i18n="namesC" style="--d:.7s">Isabel<br><span class="amp">&amp;</span> Paul</div>
+        <div class="married r" data-i18n="married" style="--d:1.2s">are getting married in the Eternal City</div>
         <svg class="pano r" style="--d:1.5s" viewBox="0 0 620 196" stroke="#A67C2E" id="pano">
           <g class="star"><circle cx="60" cy="26" r="1.6"/><circle cx="150" cy="18" r="1.3"/><circle cx="300" cy="14" r="1.7"/>
             <circle cx="430" cy="22" r="1.3"/><circle cx="540" cy="16" r="1.5"/><circle cx="500" cy="40" r="1.1"/><circle cx="95" cy="46" r="1.1"/></g>
@@ -455,22 +486,22 @@
 
         <div class="side right">
         <div class="date">
-          <div class="dow r" style="--d:2.0s">Friday</div>
-          <div class="dnum r" style="--d:2.2s">2 October 2026</div>
+          <div class="dow r" data-i18n="dow" style="--d:2.0s">Friday</div>
+          <div class="dnum r" data-i18n="dnum" style="--d:2.2s">2 October 2026</div>
           <div class="roman r" style="--d:2.4s">· MMXXVI ·</div>
         </div>
 
-        <div class="place r" style="--d:2.6s"><i></i> Rome · Italy <i></i></div>
+        <div class="place r" style="--d:2.6s"><i></i> <span data-i18n="place">Rome · Italy</span> <i></i></div>
         <div class="count r" style="--d:2.7s">
-          <div><div class="v" id="cd">—</div><div class="k">days</div></div>
-          <div><div class="v" id="ch">—</div><div class="k">hours</div></div>
-          <div><div class="v" id="cm">—</div><div class="k">minutes</div></div>
+          <div><div class="v" id="cd">—</div><div class="k" data-i18n="days">days</div></div>
+          <div><div class="v" id="ch">—</div><div class="k" data-i18n="hours">hours</div></div>
+          <div><div class="v" id="cm">—</div><div class="k" data-i18n="minutes">minutes</div></div>
         </div>
-        <div class="note r" style="--d:3s">Formal invitation to follow<span class="fine">* Flights through the Middle East may not be covered by travel insurance</span></div>
+        <div class="note r" style="--d:3s"><span data-i18n="note">Formal invitation to follow</span><span class="fine" data-i18n="fine">* Flights through the Middle East may not be covered by travel insurance</span></div>
         <a class="cta r" style="--d:3.3s" id="ics" target="_blank" rel="noopener">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
             <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
-          Add to calendar
+          <span data-i18n="cta">Add to calendar</span>
         </a>
         </div><!-- /right -->
       </div>
@@ -514,20 +545,20 @@
   <g filter="url(#relief)"><text id="mono" x="76.52" y="87.22" text-anchor="middle" font-family="'Pinyon Script',cursive" font-size="30" fill="#c85c62">I&amp;P</text></g>
 </svg>
         </div>
-        <div class="hint">tap the seal to open</div>
+        <div class="hint" data-i18n="hint">tap the seal to open</div>
       </div>
     </div>
 
     <button class="replay" id="replay">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
         <path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg>
-      close the envelope
+      <span data-i18n="replay">close the envelope</span>
     </button>
 
     <button class="irestart" id="irestart" aria-label="Start again from the beginning">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
         <path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg>
-      Start again
+      <span data-i18n="restart">Start again</span>
     </button>
 
     <button class="mtoggle" id="mtoggle" aria-label="Toggle music">
@@ -574,6 +605,7 @@ function sharpen(){card.style.willChange='auto';card.style.transformStyle='flat'
   document.body.classList.add('boxgone');}   // envelope pieces are faded by now — remove them from the render tree
 function open(){
   clearT();
+  startMusic();                                                                                   // begin music on this direct user gesture (strongest for autoplay policies)
   document.body.classList.add('open');                                                            // flap folds slowly open (2s)
   timers.push(setTimeout(()=>moveCard(2.2,'translateY(-11vh) translateZ(0) scale(.76)'),150));     // card gently rises out of the opening AS the flap folds
   timers.push(setTimeout(()=>document.body.classList.add('pull'),1000));                           // once the flap is edge-on it drops behind, so the emerging card stays in view
@@ -599,12 +631,23 @@ document.getElementById('irestart').addEventListener('click',()=>location.reload
 
 /* background music — loops forever; browsers block autoplay, so it starts on the first tap */
 const music=document.getElementById('music'),mtoggle=document.getElementById('mtoggle');
-music.volume=0.6;
-let userMuted=false;
-function startMusic(){if(!userMuted&&music.paused)music.play().catch(()=>{});}
-document.addEventListener('pointerdown',startMusic);
+const MUSIC_VOL=0.6;                 // playback volume (0–1)
+let userMuted=false,musicStarted=false;
+/* Unlock audio on the launch gesture, then bring the sound in (from the top) after `delay` ms.
+   Playing it silently but immediately keeps play() inside the user gesture, so strict autoplay
+   blockers still allow it. The audible start is delayed by MUSIC_DELAY_MS (set next to the slide
+   durations) so you can line the music up with the slides. */
+function startMusic(delay){
+  if(userMuted||musicStarted)return;
+  musicStarted=true; delay=delay||0;
+  music.volume=0;
+  const reveal=()=>{if(!userMuted){music.currentTime=0;music.volume=MUSIC_VOL;}};
+  music.play().then(()=>setTimeout(reveal,delay)).catch(()=>{
+    setTimeout(()=>{if(!userMuted){music.currentTime=0;music.volume=MUSIC_VOL;music.play().catch(()=>{});}},delay);
+  });
+}
 mtoggle.addEventListener('click',e=>{e.stopPropagation();
-  if(music.paused){userMuted=false;music.play().catch(()=>{});mtoggle.classList.remove('off');}
+  if(music.paused){userMuted=false;music.volume=MUSIC_VOL;music.play().catch(()=>{});mtoggle.classList.remove('off');}
   else{userMuted=true;music.pause();mtoggle.classList.add('off');}});
 window.addEventListener('resize',()=>{if(document.body.classList.contains('expanded')){finalS=fitScale();sharpen();}});
 
@@ -616,12 +659,44 @@ function tick(){const d=target-Date.now();
   document.getElementById('cm').textContent=Math.floor(d%36e5/6e4);}
 tick();setInterval(tick,30000);
 
-/* Real anchor navigation — more reliable than window.open (never popup-blocked) */
-document.getElementById('ics').href='https://calendar.google.com/calendar/render?action=TEMPLATE'
-  +'&dates=20261002/20261003'
-  +'&text='+encodeURIComponent('Isabel & Paul — Wedding in Rome')
-  +'&location='+encodeURIComponent("St Peter's Basilica, Vatican City, Rome")
-  +'&details='+encodeURIComponent('Save the date! Formal invitation to follow.');
+/* ---- language / translations ---- [en, es] ---- */
+const I18N={
+  std:['Save the Date','Reserven la fecha'],
+  names:['Isabel <span class="amp">&amp;</span> Paul','Isabel y Paul'],
+  namesC:['Isabel<br><span class="amp">&amp;</span> Paul','Isabel<br>y Paul'],
+  fwo:['for the wedding of','para la boda de'],
+  agm:['are getting married','se casan'],
+  itec:['In the Eternal City','En la Ciudad Eterna'],
+  idate:['Friday &middot; 2 October 2026','Viernes &middot; 2 de octubre de 2026'],
+  chapel:['In the Choir Chapel of','En la Capilla del Coro de'],
+  spb:["St Peter's Basilica",'Basílica de San Pedro'],
+  married:['are getting married in the Eternal City','se casan en la Ciudad Eterna'],
+  dow:['Friday','Viernes'],
+  dnum:['2 October 2026','2 de octubre de 2026'],
+  place:['Rome &middot; Italy','Roma &middot; Italia'],
+  note:['Formal invitation to follow','La invitación formal llegará pronto'],
+  fine:['* Flights through the Middle East may not be covered by travel insurance','* Los vuelos con escala en Oriente Medio podrían no estar cubiertos por el seguro de viaje'],
+  days:['days','días'],hours:['hours','horas'],minutes:['minutes','minutos'],
+  cta:['Add to calendar','Añadir al calendario'],
+  hint:['tap the seal to open','toca el sello para abrir'],
+  replay:['close the envelope','cerrar el sobre'],
+  restart:['Start again','Empezar de nuevo']
+};
+let LANG=0;   // 0 = English, 1 = Español
+function setLang(lang){
+  LANG=(lang==='es')?1:0;
+  document.documentElement.lang=lang;
+  document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.dataset.i18n;if(I18N[k])el.innerHTML=I18N[k][LANG];});
+  updateCalLink();
+}
+function updateCalLink(){
+  const text=LANG?'Isabel y Paul — Boda en Roma':'Isabel & Paul — Wedding in Rome';
+  const loc=LANG?'Basílica de San Pedro, Ciudad del Vaticano, Roma':"St Peter's Basilica, Vatican City, Rome";
+  const details=LANG?'¡Reserven la fecha! La invitación formal llegará pronto.':'Save the date! Formal invitation to follow.';
+  document.getElementById('ics').href='https://calendar.google.com/calendar/render?action=TEMPLATE&dates=20261002/20261003'
+    +'&text='+encodeURIComponent(text)+'&location='+encodeURIComponent(loc)+'&details='+encodeURIComponent(details);
+}
+updateCalLink();   // default (English) until a language is chosen
 </script>
 
 <script>
@@ -679,17 +754,29 @@ document.getElementById('ics').href='https://calendar.google.com/calendar/render
   addB('M196 16 A4 4 0 1 1 204 16 A4 4 0 1 1 196 16');
   addB('M200 12 V4 M196 7 H204');
 
-  // scene sequence
+  // scene sequence — each dur is that slide's on-screen time in ms
   const scenes=[{id:'i1',dur:2300},{id:'i2',dur:3400},{id:'i3',dur:4200},{id:'i4',dur:4300}];
+  const MUSIC_DELAY_MS=0;   // ms after the language tap before the music becomes audible — tweak to line music up with the slides
   const ids=scenes.map(s=>s.id);let timers=[],done=false;
   function show(id){ids.forEach(o=>document.getElementById(o).classList.toggle('active',o===id));}
   function finish(){if(done)return;done=true;timers.forEach(clearTimeout);
     ids.forEach(o=>document.getElementById(o).classList.remove('active'));
-    document.body.classList.add('introdone');}
+    document.body.classList.add('introdone');
+    /* auto-open the envelope if the guest hasn't tapped the seal within 2s */
+    setTimeout(()=>{if(!document.body.classList.contains('open')&&typeof open==='function')open();},2000);}
   function run(){let t=0;scenes.forEach(s=>{timers.push(setTimeout(()=>show(s.id),t));t+=s.dur;});
     timers.push(setTimeout(finish,t));}
   document.getElementById('iskip').addEventListener('click',finish);
-  window.addEventListener('load',()=>setTimeout(run,300));
+  /* the intro no longer auto-plays; it launches when the guest taps the start gate — that tap
+     is the user gesture that unlocks audio, so the music can start with the slides */
+  let launched=false;
+  function launch(lang){if(launched)return;launched=true;
+    if(typeof setLang==='function')setLang(lang);                   // apply the chosen language across the page
+    if(typeof startMusic==='function')startMusic(MUSIC_DELAY_MS);   // unlock now; sound comes in after MUSIC_DELAY_MS
+    document.body.classList.add('started');                         // start screen fades out
+    setTimeout(run,650);}                                           // begin the slides as it clears
+  document.getElementById('btnEn').addEventListener('click',()=>launch('en'));
+  document.getElementById('btnEs').addEventListener('click',()=>launch('es'));
 })();
 </script>
 
