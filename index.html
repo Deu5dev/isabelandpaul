@@ -233,7 +233,7 @@
   .dow{font-size:15px}
   .dnum{font-size:32px;margin:.7rem 0;line-height:1.05;white-space:nowrap}
   html[lang="es"] .dnum{font-size:23px}   /* smaller so the longer Spanish date keeps to one line */
-  .roman{font-size:16px}
+  .roman{font-size:16px;transform:translateY(0px)}   /* nudge "· MMXXVI ·" (whole line, both dots) — MUST include px, e.g. -4px = up, 6px = down */
   .place{margin-top:.5rem;font-size:14px;letter-spacing:.26em}
   /* countdown: small, pinned near the bottom just above the calendar link */
   .count{position:absolute;bottom:22px;left:0;right:0;margin:0 auto;width:-moz-fit-content;width:fit-content;
@@ -386,13 +386,16 @@
           <circle cx="60" cy="12" r="1.6" fill="currentColor"/><circle cx="6" cy="58" r="1.6" fill="currentColor"/></svg>
         <svg class="flourish tr" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round">
           <path d="M6 58 C6 34 16 16 40 12"/><path d="M6 58 C6 46 11 38 22 36 C32 34 36 41 31 47 C28 51 22 50 23 45"/>
-          <path d="M40 12 C47 11 54 10 60 12"/><circle cx="31" cy="46" r="1.6" fill="currentColor"/></svg>
+          <path d="M40 12 C47 11 54 10 60 12"/><circle cx="31" cy="46" r="1.6" fill="currentColor"/>
+          <circle cx="60" cy="12" r="1.6" fill="currentColor"/><circle cx="6" cy="58" r="1.6" fill="currentColor"/></svg>
         <svg class="flourish bl" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round">
           <path d="M6 58 C6 34 16 16 40 12"/><path d="M6 58 C6 46 11 38 22 36 C32 34 36 41 31 47 C28 51 22 50 23 45"/>
-          <path d="M40 12 C47 11 54 10 60 12"/></svg>
+          <path d="M40 12 C47 11 54 10 60 12"/><circle cx="31" cy="46" r="1.6" fill="currentColor"/>
+          <circle cx="60" cy="12" r="1.6" fill="currentColor"/><circle cx="6" cy="58" r="1.6" fill="currentColor"/></svg>
         <svg class="flourish br" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round">
           <path d="M6 58 C6 34 16 16 40 12"/><path d="M6 58 C6 46 11 38 22 36 C32 34 36 41 31 47 C28 51 22 50 23 45"/>
-          <path d="M40 12 C47 11 54 10 60 12"/></svg>
+          <path d="M40 12 C47 11 54 10 60 12"/><circle cx="31" cy="46" r="1.6" fill="currentColor"/>
+          <circle cx="60" cy="12" r="1.6" fill="currentColor"/><circle cx="6" cy="58" r="1.6" fill="currentColor"/></svg>
 
         <div class="side left">
         <div class="lgroup">
