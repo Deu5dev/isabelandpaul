@@ -102,7 +102,7 @@
      envelope, swings down in front with a dip toward the viewer (z-axis), then settles back
      to the plane and expands to ~80% of the screen height. The transform is driven inline by
      JS so the final scale can be measured against the viewport. Easing ≈ sinusoidal. */
-  .letter{position:absolute;left:50%;top:50%;width:min(88vw,470px);z-index:3;
+  .letter{position:absolute;left:50%;top:50%;width:470px;z-index:3;   /* fixed layout width → landscape proportions locked; scaled to fit each screen */
     transform:translate(-50%,-50%) translateY(0) translateZ(0) scale(.76);
     transform-origin:center center;transform-style:preserve-3d;
     transition:transform 1.6s cubic-bezier(.37,0,.63,1);will-change:transform}
@@ -159,7 +159,7 @@
 
   .pano{width:100%;height:auto;display:block;margin:0 auto .1rem}
   .pano-cap{margin:.1rem 0 .1rem;height:1.3em;font-style:italic;font-weight:400;letter-spacing:.04em;
-    font-size:clamp(6px,0.9vw,8px);color:var(--stone);transition:opacity .3s}
+    font-size:8px;color:var(--stone);transition:opacity .3s}
   .pano *{fill:none;stroke-width:1.15;stroke-linecap:round;stroke-linejoin:round}
   .pano .deco{stroke:rgba(138,129,116,.5)}
   .pano .star{fill:var(--gold);stroke:none;opacity:.75}
@@ -211,8 +211,8 @@
 
   /* ================= v2.1 · LANDSCAPE CARD ================= */
   .glow{background:radial-gradient(circle,rgba(216,180,99,.16) 0%,rgba(166,124,46,.06) 34%,transparent 62%)}
-  .card-inner{display:flex;flex-direction:row;align-items:stretch;gap:clamp(10px,2.4vw,22px);
-    padding:clamp(12px,2.6vw,20px) clamp(20px,4vw,30px)}
+  .card-inner{display:flex;flex-direction:row;align-items:stretch;gap:22px;
+    padding:20px 30px}
   .side{flex:1 1 0;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
   /* left column distributes its three blocks evenly between a fixed top and bottom */
   .side.left{justify-content:space-between}
@@ -221,26 +221,27 @@
   .vrule{flex:0 0 1px;align-self:stretch;margin:7% 0;
     background:linear-gradient(180deg,transparent,rgba(166,124,46,.5),transparent)}
   /* compacted type so the two columns fit an envelope-sized landscape card */
-  .cross{width:clamp(26px,5vw,34px);margin:.05rem auto .3rem}
-  .eyebrow{font-size:clamp(9px,1.5vw,12px);letter-spacing:.34em}
+  /* FIXED px (not vw) so the whole card is one rigid layout, scaled as a unit to lock the laptop proportions on every screen */
+  .cross{width:34px;margin:.05rem auto .3rem}
+  .eyebrow{font-size:12px;letter-spacing:.34em}
   .eyebrow-row{gap:9px}
   .eyebrow-row .sprig{width:26px}
-  .divider{margin:.35rem auto;width:clamp(96px,66%,150px)}
-  .names{font-size:clamp(30px,7.4vw,48px);line-height:.92;margin:.05rem 0;padding:.06em .12em;overflow:visible}
-  .married{font-size:clamp(12px,2vw,16px);margin-top:1rem;line-height:1.25}
+  .divider{margin:.35rem auto;width:66%;max-width:150px}
+  .names{font-size:48px;line-height:.92;margin:.05rem 0;padding:.06em .12em;overflow:visible}
+  .married{font-size:16px;margin-top:1rem;line-height:1.25}
   .date{margin:.5rem 0 1.3rem}
-  .dow{font-size:clamp(12px,2vw,15px)}
-  .dnum{font-size:clamp(23px,4.8vw,32px);margin:.7rem 0;line-height:1.05;white-space:nowrap}
-  html[lang="es"] .dnum{font-size:clamp(17px,3.5vw,23px)}   /* smaller so the longer Spanish date keeps to one line, matching English's footprint */
-  .roman{font-size:clamp(13px,1.9vw,16px)}
-  .place{margin-top:.5rem;font-size:clamp(11px,1.8vw,14px);letter-spacing:.26em}
+  .dow{font-size:15px}
+  .dnum{font-size:32px;margin:.7rem 0;line-height:1.05;white-space:nowrap}
+  html[lang="es"] .dnum{font-size:23px}   /* smaller so the longer Spanish date keeps to one line */
+  .roman{font-size:16px}
+  .place{margin-top:.5rem;font-size:14px;letter-spacing:.26em}
   /* countdown: small, pinned near the bottom just above the calendar link */
   .count{position:absolute;bottom:22px;left:0;right:0;margin:0 auto;width:-moz-fit-content;width:fit-content;
-    gap:clamp(7px,1.8vw,11px)}
-  .count .v{font-size:clamp(11px,1.9vw,14px)}
+    gap:11px}
+  .count .v{font-size:14px}
   .count .k{font-size:6.5px;margin-top:2px}
-  .cta{font-size:clamp(8px,1.15vw,10px)}
-  .note{margin-top:.5rem;font-size:clamp(12px,1.7vw,15px)}
+  .cta{font-size:10px}
+  .note{margin-top:.5rem;font-size:15px}
   .fine{display:block;margin-top:1.5em;font-style:normal;font-size:.66em;line-height:1.35;opacity:.9}
   /* graceful stack on very small phones, where an envelope-sized landscape card is too small to read */
   /* Card stays landscape (two-column) at all widths — on narrow phones guests just pinch-zoom. */
@@ -626,13 +627,13 @@ function moveCard(dur,tf){card.style.transition='transform '+dur+'s '+SINE;card.
 /* the tucked card is scaled to fit inside the envelope — on narrow phones the taller (wrapped, e.g. Spanish)
    card would otherwise bulge past the envelope edges */
 function tuckScale(){const e=document.querySelector('.env');
-  if(!e||!card.offsetHeight)return 0.76;
-  return Math.min(0.76,(e.offsetHeight*0.94)/card.offsetHeight);}
+  if(!e||!card.offsetWidth||!card.offsetHeight)return 0.76;
+  return Math.min(0.76,(e.offsetHeight*0.92)/card.offsetHeight,(e.offsetWidth*0.78)/card.offsetWidth);}
 function applyTuck(){if(document.body.classList.contains('open'))return;
   TUCK=tuckScale();card.style.transform=BASE+'translateY(0) translateZ(0) scale('+TUCK.toFixed(3)+')';}
 /* pin the "close the envelope" link just under the expanded card so it never collides with "Start again" */
 function positionReplay(){if(!document.body.classList.contains('expanded')){replay.style.top='';replay.style.bottom='';return;}
-  const cardBottom=window.innerHeight/2+(card.offsetHeight*finalS)/2,gap=Math.max(8,window.innerHeight*0.014);
+  const cardBottom=window.innerHeight/2+(card.offsetHeight*finalS)/2,gap=Math.max(14,window.innerHeight*0.02);
   replay.style.top=Math.min(cardBottom+gap,window.innerHeight-22)+'px';replay.style.bottom='auto';}
 /* once settled at full size, drop the 3D-layer promotions (translateZ/will-change/preserve-3d)
    so the browser re-rasterises the card sharply at its displayed size instead of upscaling a bitmap */
