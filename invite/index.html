@@ -165,7 +165,9 @@ body.locked{height:100svh;overflow:hidden}
 /* page 11 */
 .ov.p11 .p1{top:28.8%;left:55.2%;width:49%;font-size:calc(var(--fw)*.031);line-height:1.13;white-space:normal}
 .ov.p11 .p2{top:34.6%;left:55.2%;width:47%;font-size:calc(var(--fw)*.0293);line-height:1.15;white-space:normal}
-.ov.p11 .card{top:56.3%;left:54.4%;font-size:calc(var(--fw)*.0254);letter-spacing:.22em;padding-left:.22em;line-height:1.2;color:#5a5550;transform:translateX(-50%) rotate(-9deg)}
+/* The label written on the envelope. It has to stay inside the card, which is narrow, so the wording
+   is kept short in both languages and the ink is dark enough to read against the cream. */
+.ov.p11 .card{top:56.3%;left:54.4%;font-size:calc(var(--fw)*.0254);letter-spacing:.16em;padding-left:.16em;line-height:1.2;color:#3f382f;transform:translateX(-50%) rotate(-9deg)}
 .ov.p11 .foot{top:84.6%;left:55.2%;font-family:'Pinyon Script',cursive;font-size:calc(var(--fw)*.031);line-height:1.08;font-weight:400;font-style:normal;color:#4a4136}
 :lang(es) .ov.p11 .p1{font-size:calc(var(--fw)*.029)}
 :lang(es) .ov.p11 .p2{font-size:calc(var(--fw)*.0275)}
@@ -661,7 +663,7 @@ const I18N={
     /*p07*/ p07_date:"02 October 2026", p07_t1:"11:00 AM", p07_h1:"The Ceremony", p07_t2:"1:30 PM", p07_h2:"Wedding Lunch", p07_t3:"6:00 PM – 11:00 PM", p07_h3:"The Reception",
     /*p08*/ p08_sub1:"Optional experiences", p08_sub2:"after the wedding", p08_d1:"03 October", p08_t1:"Tuscany", p08_l1:"Wine Tasting · Countryside &amp; Lunch", p08_d2:"04 October", p08_t2:"Assisi", p08_l2a:"Pilgrimage", p08_l2b:"Feast of St. Francis", p08_d3:"05 – 06 October", p08_t3:"Positano &amp; Capri", p08_l3:"Coastal Escape",
     /*p09*/ p09_attire:"Formal Attire", p09_tie:"Formal - Black Tie", p09_h1:"Gentlemen", p09_b1:"Formal suit or tuxedo. Tie or bow tie welcome.", p09_h2:"Ladies", p09_b2:"Long, elegant dress with shoulders and knees appropriately covered.", p09_h3:"Note", p09_b3:"White, ivory and bridal tones are reserved exclusively for the bride.",
-    /*p11*/ p11_p1:"Having you with us on this special day is more than we could ask for.", p11_p2:"If you would like to give us a gift, we would be deeply grateful for a contribution towards our new life together.", p11_card:"With love<br>&amp; gratitude", p11_foot:"“With love and gratitude,<br>thank you for being part of our journey.”",
+    /*p11*/ p11_p1:"Having you with us on this special day is more than we could ask for.", p11_p2:"If you would like to give us a gift, we would be deeply grateful for a contribution towards our new life together.", p11_card:"Our bank details", p11_foot:"“With love and gratitude,<br>thank you for being part of our journey.”",
     /*p03*/ p03_welcome:"Welcome to<br>our story", p03_choose:"Please choose your language", p03_share:"We are delighted to share<br>this journey with you.",
     /*p04*/ p04_exp:"Experiences", p04_two:"Two places, one journey,<br>both close to our hearts.", p04_opt:"These experiences<br>are optional, and we would<br>be delighted if you can<br>join us.", p04_d29:"29 September", p04_cook:"Cooking Class", p04_d30:"30 September", p04_monte:"Monte Sant’Angelo<br>&amp; San Giovanni Rotondo", p04_faith:"Faith,<br>Culture,<br>Good Food<br>and Beautiful<br>Company.", p04_journey:"A journey of places<br>that inspire us.",
     kindly:'Kindly', welcome:'We would be delighted<br>to celebrate with you.',
@@ -682,7 +684,7 @@ const I18N={
     /*p07*/ p07_date:"2 de octubre de 2026", p07_t1:"11:00", p07_h1:"La ceremonia", p07_t2:"13:30", p07_h2:"Almuerzo de boda", p07_t3:"18:00 – 23:00", p07_h3:"La recepción",
     /*p08*/ p08_sub1:"Experiencias opcionales", p08_sub2:"después de la boda", p08_d1:"3 de octubre", p08_t1:"Toscana", p08_l1:"Cata de vinos · Campo y almuerzo", p08_d2:"4 de octubre", p08_t2:"Asís", p08_l2a:"Peregrinación", p08_l2b:"Fiesta de San Francisco", p08_d3:"5 – 6 de octubre", p08_t3:"Positano y Capri", p08_l3:"Escapada a la costa",
     /*p09*/ p09_attire:"Vestimenta Formal", p09_tie:"Etiqueta", p09_h1:"Caballeros", p09_b1:"Traje formal o esmoquin. Corbata o corbatin.", p09_h2:"Damas", p09_b2:"Vestido largo y elegante, con hombros y rodillas cubiertos.", p09_h3:"Atención", p09_b3:"El blanco, el marfil y los tonos de novia se reservan para la novia.",
-    /*p11*/ p11_p1:"Tenerlos con nosotros en este día tan especial es más de lo que podríamos pedir.", p11_p2:"Si desean hacernos un regalo, agradeceríamos profundamente una contribución para nuestra nueva vida juntos.", p11_card:"Con amor<br>y gratitud", p11_foot:"“Con amor y gratitud,<br>gracias por formar parte de nuestro camino.”",
+    /*p11*/ p11_p1:"Tenerlos con nosotros en este día tan especial es más de lo que podríamos pedir.", p11_p2:"Si desean hacernos un regalo, agradeceríamos profundamente una contribución para nuestra nueva vida juntos.", p11_card:"Datos bancarios", p11_foot:"“Con amor y gratitud,<br>gracias por formar parte de nuestro camino.”",
     /*p03*/ p03_welcome:"Bienvenidos a<br>nuestra historia", p03_choose:"Elige tu idioma", p03_share:"Nos alegra compartir<br>este viaje con ustedes.",
     /*p04*/ p04_exp:"Experiencias", p04_two:"Dos lugares, un viaje,<br>ambos cerca de nuestro corazón.", p04_opt:"Estas experiencias<br>son opcionales, y nos<br>encantaría que pudieran<br>acompañarnos.", p04_d29:"29 de septiembre", p04_cook:"Clase de cocina", p04_d30:"30 de septiembre", p04_monte:"Monte Sant’Angelo<br>y San Giovanni Rotondo", p04_faith:"Fe,<br>Cultura,<br>Buena Comida<br>y Hermosa<br>Compañía.", p04_journey:"Un viaje por lugares<br>que nos inspiran.",
     kindly:'Por favor', welcome:'Nos encantaría<br>celebrar con ustedes.',
