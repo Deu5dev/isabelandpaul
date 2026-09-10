@@ -707,7 +707,12 @@ function applyLang(l){
   fitOverlays();
 }
 langToggle.addEventListener('click',()=>applyLang(lang==='en'?'es':'en'));
-document.querySelectorAll('[data-setlang]').forEach(b=>b.addEventListener('click',()=>applyLang(b.dataset.setlang)));
+// Choosing a language on the first page is also the guest saying they are ready, so carry them on to
+// the next page, the same glide the arrow gives. The toggle in the corner only changes the language.
+document.querySelectorAll('[data-setlang]').forEach(b=>b.addEventListener('click',()=>{
+  applyLang(b.dataset.setlang);
+  requestAnimationFrame(()=>goToPage(currentPage()+1));   // after the new wording has been laid out
+}));
 let initial=new URLSearchParams(location.search).get('lang');
 if(!initial){try{initial=localStorage.getItem('inviteLang');}catch(e){}}
 if(!initial&&/^es\b/i.test(navigator.language||''))initial='es';
