@@ -508,13 +508,17 @@ function pauseMusic(){
 musicToggle.addEventListener('click',()=>{musicOn?pauseMusic():playMusic();});
 function startMusic(){
   musicToggle.classList.add('visible');
-  // Safari only grants play() from inside the tap itself, so the track is started silently on the tap and
-  // held there. When the delay is up it is rewound to its first bar and faded up.
+  // Safari only grants play() from inside the tap itself, so the track is started silently on the tap
+  // and held there. The delay is counted from the tap, so the music lands with the bow.
   musicHeld=true;
   playMusic();
   setTimeout(()=>{
     musicHeld=false;
-    if(musicOn&&!music.paused){music.currentTime=0;fadeMusic(MUSIC_VOLUME,MUSIC_FADE);}
+    if(!musicOn)return;
+    // The volume is raised whether or not the file has begun yet. Waiting for it to be playing left
+    // the track sitting at zero for good on anything slower than a local disk.
+    if(!music.paused){try{music.currentTime=0;}catch(e){}}   // back to the first bar
+    fadeMusic(MUSIC_VOLUME,MUSIC_FADE);
   },MUSIC_DELAY);
 }
 function openInvitation(e){
