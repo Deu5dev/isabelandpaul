@@ -416,7 +416,7 @@ body.locked{height:100svh;overflow:hidden}
     <!-- ov 11 -->
     <div class="ov p11"><p class="p1 ital c" data-i18n="p11_p1"></p><p class="p2 ital c" data-i18n="p11_p2"></p><p class="card caps c" data-i18n="p11_card"></p><p class="foot c" data-i18n="p11_foot"></p></div>
     <!-- /ov 11 -->
-    <a class="link-hotspot gift-link" id="giftLink" href="#" aria-label="Gift details"></a>
+    <a class="link-hotspot gift-link" id="giftLink" href="https://docs.google.com/document/d/1vhXhhBq6Ei4xDy5sGsnRtSsoQSBQafuPtZoXug2fHFQ/view" target="_blank" rel="noopener noreferrer" aria-label="Gift details"></a>
   </div></section>
   <section class="section"><div class="section-frame"><img src="12-thank-you.webp" alt="Thank You"></div></section>
 </main>
@@ -580,8 +580,8 @@ function skipOpening(e){
 opening.addEventListener('pointerup',skipOpening);
 opening.addEventListener('click',skipOpening);
 opening.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' ')skipOpening(e);});
-// If nobody taps, the invitation opens itself after five seconds.
-setTimeout(()=>{if(!opened)openInvitation();},5000);
+// If nobody taps, the invitation opens itself after three seconds.
+setTimeout(()=>{if(!opened)openInvitation();},3000);
 bow.addEventListener('pointerup',openInvitation); bow.addEventListener('click',openInvitation);
 
 // Page snapping: the arrows (and the keyboard) glide to the previous/next page; free scrolling still works.
