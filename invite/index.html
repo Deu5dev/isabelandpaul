@@ -231,6 +231,11 @@ body.locked{height:100svh;overflow:hidden}
 .ov.p05 .dinner{top:71.8%;left:74.5%;font-size:calc(var(--fw)*.0264);letter-spacing:.1em;padding-left:.1em}
 /* The restaurant and its address are live text, so the venue can change without new artwork. */
 .ov.p05 .venue{top:74.4%;left:76.9%;font-family:'Pinyon Script',cursive;font-style:normal;font-weight:400;font-size:calc(var(--fw)*.0425);color:#22323a}
+/* The name painted on the awning. The shopfront is seen from below and to one side, so the lettering
+   needs both a slope and a turn away from the viewer to sit on the canvas rather than on the screen.
+   Tilt is the slope in the picture plane, turn is how far the sign face is angled away; the tuner
+   writes both, so they can be matched to the artwork by eye. */
+.ov.p05 .sign{top:59.4%;left:32.3%;font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;font-size:calc(var(--fw)*.034);letter-spacing:.1em;padding-left:.1em;color:#2a231b;--sign-tilt:11deg;--sign-turn:-18deg;transform:translateX(-50%) perspective(340px) rotateY(var(--sign-turn)) rotate(var(--sign-tilt))}
 .ov.p05 .addr{top:80.3%;left:76.1%;font-size:calc(var(--fw)*.0127);letter-spacing:.14em;padding-left:.14em;line-height:1.55;color:#242a28}
 .ov.p05 .time2{top:78.1%;left:75.5%;font-size:calc(var(--fw)*.0264);letter-spacing:.1em;padding-left:.1em;color:#242a28}
 .ov.p05 .btn2{top:84.6%;left:77.1%;font-size:calc(var(--fw)*.0195);color:#32332f}
@@ -343,6 +348,7 @@ body.locked{height:100svh;overflow:hidden}
       <p class="date caps c" data-i18n="p05_date"></p>
       <p class="three caps c" data-i18n="p05_three"></p>
       <p class="optional ital c" data-i18n="p05_optional"></p>
+      <p class="sign caps" data-i18n="p05_sign"></p>
       <p class="rome caps c" data-i18n="p05_rome"></p>
       <p class="romesub ital c" data-i18n="p05_romesub"></p>
       <p class="holy caps c" data-i18n="p05_holy"></p>
@@ -663,7 +669,7 @@ const I18N={
   en:{
     untie:'Untie our story', tap:'Tap the bow', modalTitle:'Kindly RSVP', modalSub:'Please choose your language', toggle:'Español', toggleAria:'Cambiar a español',
     /*p02*/ p02_title:"The Wedding of", p02_city:"Rome, Italy", p02_quote:"Two paths, two worlds,<br>one beautiful answer<br>to prayer.",
-    /*p05*/ p05_date:"1 October", p05_three:"Three beautiful ways<br>to experience Rome together.", p05_optional:"These experiences are optional,<br>except where noted.", p05_rome:"Rome Tour", p05_romesub:"An optional experience.", p05_holy:"Holy Hour", p05_time1:"5:00 PM", p05_btn:"View on Google Maps", p05_dinner:"Dinner at", p05_venue:"Est Artigiani del Gusto", p05_addr:"Vicolo della Cancelleria, 11<br>00186 Roma RM, Italy", p05_time2:"6:00 PM", p05_good:"Good food<br>brings people closer",
+    /*p05*/ p05_date:"1 October", p05_three:"Three beautiful ways<br>to experience Rome together.", p05_optional:"These experiences are optional,<br>except where noted.", p05_rome:"Rome Tour", p05_romesub:"An optional experience.", p05_holy:"Holy Hour", p05_time1:"5:00 PM", p05_btn:"View on Google Maps", p05_dinner:"Dinner at", p05_sign:"Est", p05_venue:"Est Artigiani del Gusto", p05_addr:"Vicolo della Cancelleria, 11<br>00186 Roma RM, Italy", p05_time2:"6:00 PM", p05_good:"Good food<br>brings people closer",
     /*p06*/ p06_quote:"Two paths, two worlds,<br>one beautiful answer to prayer.", p06_days:"Days", p06_hours:"Hours", p06_minutes:"Minutes", p06_seconds:"Seconds",
     /*p07*/ p07_date:"02 October 2026", p07_t1:"11:00 AM", p07_h1:"The Ceremony", p07_t2:"1:30 PM", p07_h2:"Wedding Lunch", p07_t3:"6:00 PM – 11:00 PM", p07_h3:"The Reception",
     /*p08*/ p08_sub1:"Optional experiences", p08_sub2:"after the wedding", p08_d1:"03 October", p08_t1:"Tuscany", p08_l1:"Wine Tasting · Countryside &amp; Lunch", p08_d2:"04 October", p08_t2:"Assisi", p08_l2a:"Pilgrimage", p08_l2b:"Feast of St. Francis", p08_d3:"05 – 06 October", p08_t3:"Positano &amp; Capri", p08_l3:"Coastal Escape",
@@ -684,7 +690,7 @@ const I18N={
   es:{
     untie:'Desata nuestra historia', tap:'Toca el lazo', modalTitle:'Confirmar asistencia', modalSub:'Elige tu idioma', toggle:'English', toggleAria:'Switch to English',
     /*p02*/ p02_title:"La boda de", p02_city:"Roma, Italia", p02_quote:"Dos caminos, dos mundos,<br>una hermosa respuesta<br>a la oración.",
-    /*p05*/ p05_date:"1 de octubre", p05_three:"Tres maneras preciosas<br>de vivir Roma juntos.", p05_optional:"Estas experiencias son opcionales,<br>salvo donde se indique.", p05_rome:"Tour por Roma", p05_romesub:"Una experiencia opcional.", p05_holy:"Hora Santa", p05_time1:"17:00", p05_btn:"Ver en Google Maps", p05_dinner:"Cena en", p05_venue:"Est Artigiani del Gusto", p05_addr:"Vicolo della Cancelleria, 11<br>00186 Roma RM, Italia", p05_time2:"18:00", p05_good:"La buena comida<br>une a las personas",
+    /*p05*/ p05_date:"1 de octubre", p05_three:"Tres maneras preciosas<br>de vivir Roma juntos.", p05_optional:"Estas experiencias son opcionales,<br>salvo donde se indique.", p05_rome:"Tour por Roma", p05_romesub:"Una experiencia opcional.", p05_holy:"Hora Santa", p05_time1:"17:00", p05_btn:"Ver en Google Maps", p05_dinner:"Cena en", p05_sign:"Est", p05_venue:"Est Artigiani del Gusto", p05_addr:"Vicolo della Cancelleria, 11<br>00186 Roma RM, Italia", p05_time2:"18:00", p05_good:"La buena comida<br>une a las personas",
     /*p06*/ p06_quote:"Dos caminos, dos mundos,<br>una hermosa respuesta a la oración.", p06_days:"Días", p06_hours:"Horas", p06_minutes:"Minutos", p06_seconds:"Segundos",
     /*p07*/ p07_date:"2 de octubre de 2026", p07_t1:"11:00", p07_h1:"La ceremonia", p07_t2:"13:30", p07_h2:"Almuerzo de boda", p07_t3:"18:00 – 23:00", p07_h3:"La recepción",
     /*p08*/ p08_sub1:"Experiencias opcionales", p08_sub2:"después de la boda", p08_d1:"3 de octubre", p08_t1:"Toscana", p08_l1:"Cata de vinos · Campo y almuerzo", p08_d2:"4 de octubre", p08_t2:"Asís", p08_l2a:"Peregrinación", p08_l2b:"Fiesta de San Francisco", p08_d3:"5 – 6 de octubre", p08_t3:"Positano y Capri", p08_l3:"Escapada a la costa",
